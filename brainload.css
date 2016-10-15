@@ -1,0 +1,102 @@
+body {
+    font-family: 'Questrial', sans-serif;
+    
+}
+.background {
+    background-color: rgba(156, 147, 153, 0.36);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+}
+.window {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    z-index: 1;
+}
+
+.code {
+    min-width: 100px;
+    min-height: 2em;
+    background-color: rgb(73, 120, 200);
+    line-height: 2em;
+    font-family: monospace;
+    text-align: center;
+    font-size: 4rem;
+    border-radius: 1rem;
+    padding: .1em 1em;
+}
+.controls {
+    min-height: 3em;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    line-height: 1em;
+}
+.keyShortcut {
+    display: inline-block;
+    padding: 1em;
+    text-align: center;
+    width: 5em;
+}
+
+.correct, .error {
+    margin: 4px;
+    border: solid 1px #555;
+    color: #555;
+    border-radius: 4px;
+    padding: 4px;
+    display: inline-block;
+    line-height: 1em;
+    background-color: #eee;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* answer wrong */
+
+@keyframes incorrect {
+    0% {
+        background-color: red;
+        opacity:1;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.incorrect {
+    animation-name: incorrect;
+    animation-duration: 900ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+@keyframes correct {
+    0% {
+        background-color: green;
+        opacity:1;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+.correct {
+    animation-name: correct;
+    animation-duration: 900ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
