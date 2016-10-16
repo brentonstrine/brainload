@@ -172,7 +172,7 @@ var runTest = function(){
     var currentlyTesting;
     var wrongComponent = -1;
 
-    if(false && patternLevel < 1) {
+    if(patternLevel < 1) {
         test = pattern.prototype;
         answer = true;
         currentlyTesting = pattern;
@@ -184,7 +184,7 @@ var runTest = function(){
         // or this or the previous answer was wrong,
         // or a coin flip is heads,
         //                         give a true this time
-        if(false && (pattern.history.length <= 1 || Math.round(Math.random()) ) ) {
+        if(pattern.history.length <= 1 || Math.round(Math.random()) ) {
             answer = true;
             console.log("TRUE");
             currentlyTesting = pattern;//when answer is true, we're testing the pattern not the component
