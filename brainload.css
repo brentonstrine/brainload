@@ -1,6 +1,6 @@
 body {
     font-family: 'Questrial', sans-serif;
-    
+
 }
 .background {
     background-color: rgba(156, 147, 153, 0.36);
@@ -68,7 +68,7 @@ body {
 
 /* answer wrong */
 
-@keyframes incorrect {
+@keyframes js-incorrect {
     0% {
         background-color: red;
         opacity:1;
@@ -78,14 +78,14 @@ body {
     }
 }
 
-.incorrect {
-    animation-name: incorrect;
+.js-incorrect {
+    animation-name: js-incorrect;
     animation-duration: 900ms;
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }
 
-@keyframes correct {
+@keyframes js-correct {
     0% {
         background-color: green;
         opacity:1;
@@ -94,8 +94,8 @@ body {
         background-color: transparent;
     }
 }
-.correct {
-    animation-name: correct;
+.js-correct {
+    animation-name: js-correct;
     animation-duration: 900ms;
     animation-iteration-count: 1;
     animation-timing-function: linear;

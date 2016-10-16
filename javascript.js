@@ -158,8 +158,8 @@ var runCount = 0;
 // test pattern 1
 var runTest = function(){
     setTimeout(function() {
-        $(".background").removeClass("correct");
-        $(".background").removeClass("incorrect");
+        $(".background").removeClass("js-correct");
+        $(".background").removeClass("js-incorrect");
     }, 500);
 
 
@@ -270,7 +270,7 @@ var checkResult = function(result) {
         currentQuestion.currentlyTesting.level++;
         result = true;
         console.log("Correct! level up to ", currentQuestion.pattern.level, "!");
-        $(".background").addClass("correct");
+        $(".background").addClass("js-correct");
     } else {
         currentQuestion.pattern.level--;
         currentQuestion.currentlyTesting.level--;
@@ -282,7 +282,7 @@ var checkResult = function(result) {
             "!\nComponent was: \n", currentQuestion.currentComponents ? currentQuestion.currentComponents[0].component(false) : ""
 
         );
-        $(".background").addClass("incorrect");
+        $(".background").addClass("js-in.backg");
     }
     currentQuestion.currentlyTesting.history.push({
         valid: result,
