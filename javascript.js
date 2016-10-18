@@ -282,7 +282,7 @@ var checkResult = function(result) {
             "!\nComponent was: \n", currentQuestion.currentComponents ? currentQuestion.currentComponents[0].component(false) : ""
 
         );
-        $(".background").addClass("js-in.backg");
+        $(".background").addClass("js-incorrect");
     }
     currentQuestion.currentlyTesting.history.push({
         valid: result,
