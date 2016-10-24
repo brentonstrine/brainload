@@ -84,7 +84,7 @@ $(function(){
                 if(type==true){
                     fragment = pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C"]);
                 } else {
-                    fragment = pickFromArr(["<span> </span>" + pickFrom(0,999), "<span> </span>x", "<span> ? </span>", ";", "=", "-", pickFrom(0,999), "<br>x"]);
+                    fragment = pickFromArr(["<span> </span>" + pickFrom(0,999), "<span> </span>x", "<span> _ </span>", ";", "=", "-", pickFrom(0,999), "<br>x"]);
                 }
                 fragment += "<span class='js-syntax-explanation'>identifier</span>";
                 return fragment;
@@ -96,7 +96,7 @@ $(function(){
                 if(type==true){
                     fragment = "=";
                 } else {
-                    fragment = pickFromArr("==", "===", "<span> ? </span>", "pickFrom(0,999)", "-", "!");
+                    fragment = pickFromArr("==", "===", "<span> _ </span>", "pickFrom(0,999)", "-", "!");
                 }
                 fragment += "<span class='js-syntax-explanation'>assignment</span>";
                 return fragment;
@@ -108,7 +108,7 @@ $(function(){
                 if(type==true){
                     fragment = "{}";
                 } else {
-                    fragment = pickFromArr("{", "}", "}{", "<span> ? </span>", "{]", "[}", "<>");
+                    fragment = pickFromArr("{", "}", "}{", "<span> _ </span>", "{]", "[}", "<>");
                 }
                 fragment += "<span class='js-syntax-explanation'>object</span>";
                 return fragment;
@@ -120,20 +120,19 @@ $(function(){
                 if(type==true){
                     fragment = pickFrom(0,999);
                 } else {
-                    fragment = pickFromArr(["<span> ? </span>", "=", "&", "+", ", ", "; ", "var"]);
+                    fragment = pickFromArr(["<span> _ </span>", "=", "&", "+", ", ", "; ", "var"]);
                 }
                 fragment += "<span class='js-syntax-explanation'>number</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
+            }}
+        });
         this.semicolon  = Object.create(componentPrototype, {
             getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = ";<br>";
                 } else {
-                    fragment = pickFromArr(["<span>?</span>", ": ", ". ", ", ", "<span>?</span>"]);
+                    fragment = pickFromArr(["<span>_</span>", ": ", ". ", ", ", "<span>_</span>"]);
                 }
                 fragment += "<span class='js-syntax-explanation'>semicolon</span>";
                 return fragment;
