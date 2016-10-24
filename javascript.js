@@ -25,17 +25,36 @@ $(function(){
 
 
     var currentQuestion = {exists:false};
+    var componentPrototype = (function(){
+        var score = 0;
+        this.updateScore= function(amount){
+            score += amount;
+        };
+        this.getScore = function(){
+            return score;
+        };
+        this.getComponent = function(type){
+            return "No component specified.";
+        }
+        return {getComponent, updateScore, getScore};
+    }());
 
     var components = (function() {
-        this.variable = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+        this.test = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
+                var fragment;
+                if(type==true){
+                    fragment = "test";
+                } else {
+                    fragment = pickFromArr(["vest", "chest", "breast", "nest"]);
+                }
+                fragment += "<span class='js-syntax-explanation js-syntax-explanation-meta'>test</span>";
+                return fragment;
+            }}
+        });
+
+        this.variable = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = "var";
@@ -44,18 +63,10 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation js-syntax-explanation-meta'>variable declaration</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
-        this.space = (function(){
-            var score= 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+            }}
+        });
+        this.space = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = "&nbsp;";
@@ -64,18 +75,10 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation'>space</span>";
                 return fragment;
-            };
-            return {getComponent, updateScore, getScore};
-        }());
-        this.identifier = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+            }}
+        });
+        this.identifier = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
 
                 if(type==true){
@@ -85,18 +88,10 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation'>identifier</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
-        this.assignment  = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+            }}
+        });
+        this.assignment  = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = "=";
@@ -105,18 +100,10 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation'>assignment</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
-        this.object  = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+            }}
+        });
+        this.object  = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = "{}";
@@ -125,18 +112,10 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation'>object</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
-        this.number  = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+            }}
+        });
+        this.number  = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = pickFrom(0,999);
@@ -148,15 +127,8 @@ $(function(){
             }
             return {getComponent, updateScore, getScore};
         }());
-        this.semicolon  = (function(){
-            var score = 0;
-            this.updateScore= function(amount){
-                score += amount;
-            };
-            this.getScore = function(){
-                return score;
-            };
-            this.getComponent = function(type){
+        this.semicolon  = Object.create(componentPrototype, {
+            getComponent: {value: function(type){
                 var fragment;
                 if(type==true){
                     fragment = ";<br>";
@@ -165,9 +137,8 @@ $(function(){
                 }
                 fragment += "<span class='js-syntax-explanation'>semicolon</span>";
                 return fragment;
-            }
-            return {getComponent, updateScore, getScore};
-        }());
+            }}
+        });
         return {
             variable,
             identifier,
@@ -175,6 +146,7 @@ $(function(){
             number,
             semicolon,
             space,
+            test,
         }
     }());
 
@@ -183,31 +155,9 @@ var patterns = [
         prototypeString: "var x;",
         components: [
             {
-                name: "variable",
-                component: components.variable,
-                history: [
-                    {
-                        valid: true,
-                        time: 4000 //ms
-                    },
-                ],
-                score: null,
-                level: 0,
-            },
-            {name: "space",
-            component: components.space,
-            history: [{valid: true,time: 4000},],
-            score: null,
-            level: 0,},
-            {
-                name: "identifier",
-                component: components.identifier,
-                history: [
-                    {
-                        valid: true,
-                        time: 4000 //ms
-                    },
-                ],
+                name: "test",
+                component: components.test,
+                history: [{valid: true,time: 4000},],
                 score: null,
                 level: 0,
             },
