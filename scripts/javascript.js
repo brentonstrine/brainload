@@ -148,7 +148,34 @@ $(function(){
             test,
         }
     }());
-
+    var expressionPrototype = (function(){
+        var score = 0;
+        this.updateScore= function(amount){
+            score += amount;
+        };
+        this.getScore = function(){
+            return score;
+        };
+        this.getExpression = function(type){
+            return "No component specified.";
+        }
+        return {getExpression, updateScore, getScore};
+    }());
+    // Expressions and operators.
+    var expressions = (function(){
+        this.test = Object.create(componentPrototype, {
+            getExpression: {value: function(type){
+                var fragment;
+                fragment = components.test.getComponent(true)
+                fragment = components.test.getComponent()
+                fragment = components.test.getComponent()
+                fragment = components.test.getComponent()
+                return fragment;
+            }}
+        });
+        return {test};
+    }());
+debugger;
 var patterns = [
     {
         prototypeString: "var x;",
@@ -524,19 +551,6 @@ var checkResult = function(result) {
     }, delay);
 };
 
-var pickFrom = function (min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-var pickFromArr = function (arr) {
-  var max = arr.length - 1;
-  var min = 0;
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return arr[Math.floor(Math.random() * (max - min + 1)) + min];
-}
-
 var evaluateLevels = function(){
     console.group("Check Levels");
     console.log(patterns[level].level,"/", level);
@@ -556,7 +570,7 @@ var evaluateLevels = function(){
 
 
 // last thing in program!!
-runTest();
+
 });
 
 
