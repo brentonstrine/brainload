@@ -8,10 +8,19 @@ tests, codeUtils) {
     var level = 0;
     var runCount = 0;
     var testList = [tests[0]];
+    var parent = this;
+
 
     var levelUp = function(){
         level++;
         testList.push(tests[level]);
+    };
+
+    var getQuestion = function(){
+        return currentQuestion;
+    };
+    var setQuestion = function(q){
+        currentQuestion = q;
     };
 
     var runTest = function(){
@@ -128,22 +137,30 @@ tests, codeUtils) {
 
 
     var runTest2 = function(){
-        $(".window").removeClass("js-showAnswer");
         setTimeout(function() {
+            $(".window").removeClass("js-showAnswer");
             $(".background").removeClass("js-correct");
             $(".background").removeClass("js-incorrect");
         }, 500);
 
         //decide if test will be true or false
         var testType = Math.round(Math.random());
-        debugger;
 
         //pick which code we're going to test
         var testId = codeUtils.chooseCode(testList);
-        var test = testList[testId].get();
+        var q = testList[testId].get(testType);
+        setQuestion(q);
+
+        //get test string
+        var testMarkup;
+        for(i=0;i<q.lines.length;i++){
+            testMarkup += '<span class="line' + i + '">';
+            testMarkup += q.lines[i].string;
+            testMarkup += '</span>';
+        }
 
         // insert test code into window
-        $(".window .code").html(test);
+        $(".window .code").html(testMarkup);
 
         console.log("waiting on your answer");
         console.groupEnd();
@@ -152,39 +169,54 @@ tests, codeUtils) {
 
     var checkResult = function(result) {
         var delay = 200;
+        var score;
+        var question = getQuestion();
+        if(result == question.answer){
+        // Correct
+            score = 1;
 
-        if(result == currentQuestion.answer){
-            currentQuestion.pattern.level++;
-            currentQuestion.currentlyTesting.level++;
-            result = true;
-            console.log("Correct! level up to ", currentQuestion.pattern.level, "!");
+        //     result = true;
+        //     console.log("Correct! level up to ", currentQuestion.pattern.level, "!");
             $(".background").addClass("js-correct");
         } else {
-            currentQuestion.pattern.level--;
-            currentQuestion.currentlyTesting.level--;
-             result = false;
-            console.log("Wrong!!! Answer was ", currentQuestion.answer,
-                "Level down to ", currentQuestion.pattern.level,
-                "!\nTest was: \n", currentQuestion.test,
-                "!\nComponent ID was: \n", currentQuestion.wrongComponent,
-                "!\nComponent was: \n", currentQuestion.currentComponents ? currentQuestion.currentComponents[0].component.get(false) : ""
+        // Incorrect
+            score = -1;
 
-            );
+        //     currentQuestion.pattern.level--;
+        //     currentQuestion.currentlyTesting.level--;
+        //      result = false;
+        //     console.log("Wrong!!! Answer was ", currentQuestion.answer,
+        //         "Level down to ", currentQuestion.pattern.level,
+        //         "!\nTest was: \n", currentQuestion.test,
+        //         "!\nComponent ID was: \n", currentQuestion.wrongComponent,
+        //         "!\nComponent was: \n", currentQuestion.currentComponents ? currentQuestion.currentComponents[0].component.get(false) : ""
+        //
+        //     );
             $(".background").addClass("js-incorrect");
             $(".window").addClass("js-showAnswer");
             delay = 1000;
         }
 
-        // log their answer
-        currentQuestion.currentlyTesting.history.push({
-            valid: result,
-            time: 4000
-        });
 
-        currentQuestion = {exists:false}
-        setTimeout(function() {
-         runTest();
-        }, delay);
+        // parse through the current question
+        for(i=0;i<question.lines.length;i++){
+
+            // level up everything that contributed!
+            for(j=0;j<question.lines[i].components.length;j++){
+                question.lines[i].components[j].updateScore(score);
+                question.lines[i].components[j].addToHistory(score);
+            }
+        }
+
+
+        // log their answer
+        // currentQuestion.currentlyTesting.history.push({
+        //     valid: result,
+        //     time: 4000
+        // });
+
+        question = null;
+        runTest2();
     };
 
     var evaluateLevels = function(){
@@ -203,7 +235,8 @@ tests, codeUtils) {
 
     return {
         levelUp,
-        runTest,
+        getQuestion,
+        setQuestion,
         runTest2,
         checkResult,
         evaluateLevels

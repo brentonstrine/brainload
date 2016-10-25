@@ -1,13 +1,13 @@
 define(["testCode", "components", "expressions"], function(testCode, components, expressions) {
 
-    var getProbabilities = function(codeList){
-        var l = codeList.length;
+    var getProbabilities = function(componentList){
+        var l = componentList.length;
         var inverseList = [];
         var inverseTotal = 0;
         var probabilityList = [];
 
         for(i=0;i<l;i++){
-            var inverseScore = 1 / (codeList[i].getScore() + .1);
+            var inverseScore = 1 / (componentList[i].getScore() + .1);
             inverseList.push(inverseScore);
             inverseTotal += inverseScore;
         }
@@ -17,10 +17,10 @@ define(["testCode", "components", "expressions"], function(testCode, components,
         return probabilityList;
     };
 
-    var chooseCode = function(codeList){
-        var probabilityList = getProbabilities(codeList);
+    var chooseCode = function(componentList){
+        var probabilityList = getProbabilities(componentList);
         var r = Math.random();
-        for(i=0;i<codeList.length;i++){
+        for(i=0;i<componentList.length;i++){
             if(r < probabilityList[i]){
                 return i;
             }
@@ -28,23 +28,42 @@ define(["testCode", "components", "expressions"], function(testCode, components,
         }
     };
 
-    var makeTest = function(codeList){
-        var probabilityList = getProbabilities(codeList);
+    var makeTest = function(type, componentList){
         var testString = "";
-        var errLocation = false;
 
-        var r = Math.random();
-        for(i=0;i<codeList.length;i++){
-            if(errLocation === false && r < probabilityList[i]){
-                errLocation = i;
-                testString += codeList[i].get(false);
-                continue;
+        //answer to this test is FALSE
+        if(!type){
+            var probabilityList = getProbabilities(componentList);
+            var errLocation = false;
+            var r = Math.random();
+            for(i=0;i<componentList.length;i++){
+                if(errLocation === false && r < probabilityList[i]){
+                    errLocation = i;
+                    testString += componentList[i].get(false);
+                    continue;
+                }
+                testString += componentList[i].get(true);
+                r -= probabilityList[i];
             }
-            testString += codeList[i].get(true);
-            r -= probabilityList[i];
+            return {
+                string: testString,
+                answer: false,
+                errLocation: errLocation,
+                components: componentList
+            };
+        } else {
+            for(i=0;i<componentList.length;i++){
+                testString += componentList[i].get(true);
+            }
+            return {
+                string: testString,
+                answer: true,
+                errLocation: null,
+                components: componentList
+            };
         }
-        return [testString, errLocation];
     };
+
 
     return {makeTest, chooseCode};
 });

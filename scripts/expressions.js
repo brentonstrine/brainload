@@ -12,16 +12,15 @@ define(["testCode", "components", "codeUtils"], function(testCode, components, c
         });
         var varDeclaration = Object.create(testCode.testCodePrototype, {
             get: {value: function(type){
-                var parts = [
+                var expressions = [this];
+                var componentsList = [
                     components.variable,
                     components.space,
                     components.identifier,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(parts);
-                var testString = test[0];
-                var testErr = test[1];
-                return testString;
+                var test = codeUtils.makeTest(type, componentsList, expressions);
+                return test;
             }}
         });
     return {test, varDeclaration};
