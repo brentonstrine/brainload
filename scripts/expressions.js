@@ -21,13 +21,7 @@ define(["testCode", "components", "codeUtils"], function(testCode, components, c
                 var test = codeUtils.makeTest(parts);
                 var testString = test[0];
                 var testErr = test[1];
-                debugger;
-
-                // var fragment;
-                // fragment += components.variable.get();
-                // fragment += components.space.get();
-                // fragment += components.identifier.get();
-                // fragment += components.semicolon.get();
+                return testString;
             }}
         });
     return {test, varDeclaration};

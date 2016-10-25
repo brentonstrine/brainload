@@ -1,10 +1,18 @@
 define(
-["utils", "testCode", "components", "expressions", "patterns"],
-function(utils, testCode, components, expressions, patterns) {
+["utils", "testCode", "components", "expressions", "patterns",
+"tests", "codeUtils"],
+function(utils, testCode, components, expressions, patterns,
+tests, codeUtils) {
 
     var currentQuestion = {exists:false};
     var level = 0;
     var runCount = 0;
+    var testList = [tests[0]];
+
+    var levelUp = function(){
+        level++;
+        testList.push(tests[level]);
+    };
 
     var runTest = function(){
 
@@ -118,6 +126,38 @@ function(utils, testCode, components, expressions, patterns) {
 
     };
 
+
+    var runTest2 = function(){
+        $(".window").removeClass("js-showAnswer");
+        setTimeout(function() {
+            $(".background").removeClass("js-correct");
+            $(".background").removeClass("js-incorrect");
+        }, 500);
+
+        var testId = codeUtils.chooseCode(testList);
+        var test = testList[testId].get();
+
+        // insert test code into window
+        $(".window .code").html(test);
+
+        if(!currentlyTesting) {
+            debugger;
+        }
+        evaluateLevels();
+
+        currentQuestion.exists = true;
+        currentQuestion.pattern = pattern;
+        currentQuestion.currentlyTesting = currentlyTesting;
+        currentQuestion.test = test;
+        currentQuestion.wrongComponent = wrongComponent;
+        currentQuestion.answer = answer;
+        if(currentComponents){currentQuestion.currentComponents = currentComponents;}
+
+        console.log("waiting on your answer");
+        console.groupEnd();
+
+    };
+
     var checkResult = function(result) {
         var delay = 200;
         if(!currentQuestion.exists){
@@ -175,7 +215,9 @@ function(utils, testCode, components, expressions, patterns) {
     };
 
     return {
+        levelUp,
         runTest,
+        runTest2,
         checkResult,
         evaluateLevels
     }

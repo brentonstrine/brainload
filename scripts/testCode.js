@@ -12,10 +12,12 @@ define([], function() {
           this.addToHistory= function(item){
               history.push(item);
           };
-          this.get = function(type){
-              return "No component specified.";
-          }
-          return {get, updateScore, getScore};
+          return {
+              updateScore,
+              getScore,
+              addToHistory,
+              
+          };
       }())
   }
 });

@@ -31,21 +31,21 @@ define(["testCode", "components", "expressions"], function(testCode, components,
     var makeTest = function(codeList){
         var probabilityList = getProbabilities(codeList);
         var testString = "";
-        var errLocation;
+        var errLocation = false;
 
         var r = Math.random();
         for(i=0;i<codeList.length;i++){
-            if(r < probabilityList[i]){
-            errLocation = i;
-                testString += codeList[i].get(false) + "\n";
-            } else {
-                testString += codeList[i].get(true) + "\n";
+            if(errLocation === false && r < probabilityList[i]){
+                errLocation = i;
+                testString += codeList[i].get(false);
+                continue;
             }
+            testString += codeList[i].get(true);
             r -= probabilityList[i];
         }
         return [testString, errLocation];
     };
 
-    return {makeTest};
+    return {makeTest, chooseCode};
 });
 

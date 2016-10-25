@@ -7,93 +7,121 @@ define(["utils", "testCode"], function(utils, testCode) {
             } else {
                 fragment = utils.pickFromArr(["vest", "chest", "breast", "nest"]);
             }
-            fragment += "<span class='js-syntax-explanation js-syntax-explanation-meta'>test</span>";
+            fragment += "<span class='component-explanation component-explanation-meta'>test</span>";
             return fragment;
         }}
     });
 
     var variable = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = "var";
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "var";
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr(["VAR", "Variable", "Var", "vaR", "variable", "x", utils.pickFrom(0,999), "myVar"]);
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["VAR", "Variable", "Var", "vaR", "variable", "x", utils.pickFrom(0,999), "myVar"]);
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation js-syntax-explanation-meta'>variable declaration</span>";
+            fragment += "<span class='component-explanation'>var keyword</span></span>\n";
             return fragment;
         }}
     });
     var space = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = "&nbsp;";
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "&nbsp";
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr(["<span> </span>", utils.pickFromArr(["-", "*", "$", "'", "=", "."])]);
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span> </span>", utils.pickFromArr(["-", "*", "$", "'", "=", "."])]);
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>space</span>";
+            fragment += "<span class='component-explanation'>space</span></span>\n";
             return fragment;
         }}
     });
     var identifier = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
 
             if(type==true){
-                fragment = utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C"]);
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C"]);
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr(["<span> </span>" + utils.pickFrom(0,999), "<span> </span>x", "<span> _ </span>", ";", "=", "-", utils.pickFrom(0,999), "<br>x"]);
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span> </span>" + utils.pickFrom(0,999), "<span> </span>x", "<span> _ </span>", ";", "=", "-", utils.pickFrom(0,999), "<br>x"]);
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>identifier</span>";
+            fragment += "<span class='component-explanation'>identifier</span></span>\n";
             return fragment;
         }}
     });
     var assignment  = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = "=";
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "=";
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr("==", "===", "<span> _ </span>", "utils.pickFrom(0,999)", "-", "!");
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr("==", "===", "<span> _ </span>", "utils.pickFrom(0,999)", "-", "!");
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>assignment</span>";
+            fragment += "<span class='component-explanation'>assignment</span></span>\n";
             return fragment;
         }}
     });
     var object  = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = "{}";
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "{}";
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr("{", "}", "}{", "<span> _ </span>", "{]", "[}", "<>");
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr("{", "}", "}{", "<span> _ </span>", "{]", "[}", "<>");
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>object</span>";
+            fragment += "<span class='component-explanation'>object</span></span>\n";
             return fragment;
         }}
     });
     var number  = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = utils.pickFrom(0,999);
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += utils.pickFrom(0,999);
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr(["<span> _ </span>", "=", "&", "+", ", ", "; ", "var"]);
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span> _ </span>", "=", "&", "+", ", ", "; ", "var"]);
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>number</span>";
+            fragment += "<span class='component-explanation'>number</span></span>\n";
             return fragment;
         }}
     });
     var semicolon  = Object.create(testCode.testCodePrototype, {
         get: {value: function(type){
-            var fragment;
+            var fragment = '<span class="component ';
             if(type==true){
-                fragment = ";<br>";
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += ";<br>";
+                fragment += '</span>';
             } else {
-                fragment = utils.pickFromArr(["<span>_</span>", ": ", ". ", ", ", "<span>_</span>"]);
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span>_</span>", ": ", ". ", ", ", "<span>_</span>"]);
+                fragment += '</span>';
             }
-            fragment += "<span class='js-syntax-explanation'>semicolon</span>";
+            fragment += "<span class='component-explanation'>semicolon</span></span>\n";
             return fragment;
         }}
     });
