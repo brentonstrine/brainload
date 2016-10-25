@@ -9,6 +9,7 @@ $(function(){
                 test.checkResult(false);
             }
         });
+expressions.varDeclaration.get()
 
         console.log(components);
         console.log(expressions);
