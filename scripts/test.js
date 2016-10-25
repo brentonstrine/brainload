@@ -134,24 +134,16 @@ tests, codeUtils) {
             $(".background").removeClass("js-incorrect");
         }, 500);
 
+        //decide if test will be true or false
+        var testType = Math.round(Math.random());
+        debugger;
+
+        //pick which code we're going to test
         var testId = codeUtils.chooseCode(testList);
         var test = testList[testId].get();
 
         // insert test code into window
         $(".window .code").html(test);
-
-        if(!currentlyTesting) {
-            debugger;
-        }
-        evaluateLevels();
-
-        currentQuestion.exists = true;
-        currentQuestion.pattern = pattern;
-        currentQuestion.currentlyTesting = currentlyTesting;
-        currentQuestion.test = test;
-        currentQuestion.wrongComponent = wrongComponent;
-        currentQuestion.answer = answer;
-        if(currentComponents){currentQuestion.currentComponents = currentComponents;}
 
         console.log("waiting on your answer");
         console.groupEnd();
@@ -160,11 +152,6 @@ tests, codeUtils) {
 
     var checkResult = function(result) {
         var delay = 200;
-        if(!currentQuestion.exists){
-            console.log("no current answer.");
-            debugger;
-            return;
-        }
 
         if(result == currentQuestion.answer){
             currentQuestion.pattern.level++;
