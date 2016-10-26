@@ -1,5 +1,5 @@
 define(["utils", "testCode"], function(utils, testCode) {
-    var test = Object.create(testCode.testCodePrototype, {
+    var test = Object.create(testCode.testCodePrototype(), {
         get: {value: function(type){
             var fragment;
             if(type==true){
@@ -12,7 +12,10 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
 
-    var variable = Object.create(testCode.testCodePrototype, {
+    var variable = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
@@ -26,25 +29,31 @@ define(["utils", "testCode"], function(utils, testCode) {
             }
             fragment += "<span class='component-explanation'>var keyword</span></span>\n";
             return fragment;
-        }}
+        }},
     });
-    var space = Object.create(testCode.testCodePrototype, {
+    var space = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
-                fragment += "&nbsp";
+                fragment += "&nbsp;";
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr(["<span> </span>", utils.pickFromArr(["-", "*", "$", "'", "=", "."])]);
+                fragment += utils.pickFromArr(["<span class='component-missing component-required'>&nbsp;</span>", utils.pickFromArr(["]", "*", "|", "'", "=", "."])]);
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>space</span></span>\n";
             return fragment;
         }}
     });
-    var identifier = Object.create(testCode.testCodePrototype, {
+    var identifier = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
 
@@ -54,14 +63,17 @@ define(["utils", "testCode"], function(utils, testCode) {
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr(["<span> </span>" + utils.pickFrom(0,999), "<span> </span>x", "<span> _ </span>", ";", "=", "-", utils.pickFrom(0,999), "<br>x"]);
+                fragment += utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>" + utils.pickFrom(0,999), "<span class='component-missing'>&nbsp;</span>", "<span class='component-missing'>&nbsp;</span>", ";", "=", "-", utils.pickFrom(0,999), "5"]);
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>identifier</span></span>\n";
             return fragment;
         }}
     });
-    var assignment  = Object.create(testCode.testCodePrototype, {
+    var assignment  = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
@@ -70,14 +82,17 @@ define(["utils", "testCode"], function(utils, testCode) {
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr("==", "===", "<span> _ </span>", "utils.pickFrom(0,999)", "-", "!");
+                fragment += utils.pickFromArr("==", "===", "<span class='component-missing'>&nbsp;</span>", "utils.pickFrom(0,999)", "-", "!");
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>assignment</span></span>\n";
             return fragment;
         }}
     });
-    var object  = Object.create(testCode.testCodePrototype, {
+    var object  = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
@@ -86,14 +101,17 @@ define(["utils", "testCode"], function(utils, testCode) {
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr("{", "}", "}{", "<span> _ </span>", "{]", "[}", "<>");
+                fragment += utils.pickFromArr("{", "}", "}{", "<span class='component-missing'>&nbsp;</span>", "{]", "[}", "<>");
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>object</span></span>\n";
             return fragment;
         }}
     });
-    var number  = Object.create(testCode.testCodePrototype, {
+    var number  = Object.create(testCode.testCodePrototype(), {
+
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
@@ -102,14 +120,16 @@ define(["utils", "testCode"], function(utils, testCode) {
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr(["<span> _ </span>", "=", "&", "+", ", ", "; ", "var"]);
+                fragment += utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", "&", "+", ", ", "; ", "var"]);
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>number</span></span>\n";
             return fragment;
         }}
     });
-    var semicolon  = Object.create(testCode.testCodePrototype, {
+    var semicolon  = Object.create(testCode.testCodePrototype(), {
+        score: {value: 0},
+        history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
             if(type==true){
@@ -118,7 +138,7 @@ define(["utils", "testCode"], function(utils, testCode) {
                 fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr(["<span>_</span>", ": ", ". ", ", ", "<span>_</span>"]);
+                fragment += utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", ": ", ". ", ", ", "<span class='component-missing'>&nbsp;</span>"]);
                 fragment += '</span>';
             }
             fragment += "<span class='component-explanation'>semicolon</span></span>\n";

@@ -1,9 +1,9 @@
 define([], function() {
   return {
-      testCodePrototype: (function(){
-          var score = 0;
+      testCodePrototype: function(){
+          var score = 100;
           var history = [];
-          this.updateScore= function(amount){
+          this.updateScore = function(amount){
               score += amount;
           };
           this.getScore = function(){
@@ -13,12 +13,11 @@ define([], function() {
               history.push(item);
           };
           return {
-              updateScore,
-              getScore,
-              addToHistory,
-              
+              updateScore: this.updateScore,
+              getScore: this.getScore,
+              addToHistory: this.addToHistory,
           };
-      }())
+      }
   }
 });
 

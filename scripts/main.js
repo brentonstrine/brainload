@@ -5,12 +5,18 @@ $(function(){
     function(utils, components, expressions, patterns, test,
     tests) {
         $(document).on("keyup", function(e){
-            if(e.which == 39){ //right arrow
-                test.checkResult(true);
-            } else if(e.which == 37){ //left arrow
-                test.checkResult(false);
+            if(test.getQuestion()){
+                if(e.which == 39){ //right arrow
+                    test.checkResult(true);
+                } else if(e.which == 37){ //left arrow
+                    test.checkResult(false);
+                }
+            } else {
+                console.log ("whoa there! Slow down!")
             }
         });
+
+        test.levelUp();
         test.runTest2();
     });
 });
