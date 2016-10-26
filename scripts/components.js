@@ -56,8 +56,11 @@ define(["utils", "testCode"], function(utils, testCode) {
         history: {value: []},
         get: {value: function(type){
             var fragment = '<span class="component ';
+            var part = this.getSpecialPart();
 
-            if(type==true){
+            if(part){
+                fragment = part;
+            } else if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
                 fragment += utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C"]);
                 fragment += '</span>';

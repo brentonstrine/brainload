@@ -13,6 +13,8 @@ function(testCode, components, expressions, codeUtils) {
                 // two lines:
                 // var x;
                 // var x;
+
+                components.identifier.setSpecialPart();
                 var line1 = expressions.varDeclaration.get(type);
                 var line2 = expressions.assignmentNum.get(type);
 
