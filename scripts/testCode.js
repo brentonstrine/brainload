@@ -28,6 +28,9 @@ define([], function() {
                   return specialPart;
               }
           };
+          this.clearSpecialPart = function(){
+              specialPart = null;
+          };
           return {
               updateScore: this.updateScore,
               getScore: this.getScore,
@@ -35,6 +38,7 @@ define([], function() {
               setSpecialPart: this.setSpecialPart,
               passPart: this.passPart,
               getSpecialPart: this.getSpecialPart,
+              clearSpecialPart: this.clearSpecialPart,
           };
       }
   }

@@ -36,6 +36,7 @@ define(["testCode", "components", "expressions"], function(testCode, components,
         return points;
     };
 
+    // getRandomProportionallyFrom
     var chooseCode = function(componentList){
         var probabilityList = getProbabilities(componentList);
         var r = Math.random();
@@ -45,6 +46,13 @@ define(["testCode", "components", "expressions"], function(testCode, components,
             }
             r = r - probabilityList[i];
         }
+    };
+
+    //random randomly
+    var getRandomFrom = function (min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
     var makeTest = function(type, componentList){
@@ -69,7 +77,6 @@ define(["testCode", "components", "expressions"], function(testCode, components,
                 components: componentList
             };
         } else {
-            console.log("the answer will be TRUE");
             for(i=0;i<componentList.length;i++){
                 testString += componentList[i].get(true);
             }
@@ -83,6 +90,6 @@ define(["testCode", "components", "expressions"], function(testCode, components,
     };
 
 
-    return {makeTest, chooseCode, getPoints};
+    return {makeTest, chooseCode, getPoints, getRandomFrom};
 });
 

@@ -14,9 +14,16 @@ function(testCode, components, expressions, codeUtils) {
                 // var x;
                 // var x;
 
+                // choose which line will have the error
+                var typeList = [true, true];
+                if(type==false){
+                    typeList[codeUtils.getRandomFrom(0,1)] = false;
+                }
+
                 components.identifier.setSpecialPart();
-                var line1 = expressions.varDeclaration.get(type);
-                var line2 = expressions.assignmentNum.get(type);
+                var line1 = expressions.varDeclaration.get(typeList[0]);
+                var line2 = expressions.assignmentNum.get(typeList[1]);
+                components.identifier.clearSpecialPart();
 
                 return {
                     lines: [line1, line2],
