@@ -15,6 +15,21 @@ function(testCode, components, codeUtils) {
                 return test;
             }}
         });
+        var assignmentVal = Object.create(testCode.testCodePrototype(), {
+            get: {value: function(type){
+                var componentsList = [
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.value,
+                    components.semicolon
+                ];
+                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentVal");
+                test.string = "<div>" + test.string + "</div>";
+                return test;
+            }}
+        });
         var assignmentNum = Object.create(testCode.testCodePrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -60,7 +75,7 @@ function(testCode, components, codeUtils) {
                 return test;
             }}
         });
-    return {varDeclaration, assignmentNum, assignmentStr, assignmentObj};
+    return {varDeclaration, assignmentNum, assignmentStr, assignmentObj, assignmentVal};
 });
 
 // component

@@ -106,7 +106,7 @@ tests, codeUtils) {
 
                 //get score of each component
                 for(var j=0;j<thisExpression.components.length;j++){
-                    
+
                     var thisScore = thisExpression.components[j].getScore();
                     scoreObj[i].components[j] = thisScore;
                     console.log("expression" + i + ".component"+j+": " + thisExpression.components[j].getScore())

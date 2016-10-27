@@ -26,6 +26,9 @@ body {
     padding: 1.5rem 4rem;
     position: relative;
 }
+.code > div {
+    white-space: nowrap;
+}
 .controls {
     min-height: 3em;
 
