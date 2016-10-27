@@ -1,20 +1,7 @@
-define(["testCode", "components", "codeUtils"], function(testCode, components, codeUtils) {
+define(["testCode", "components", "codeUtils"],
+function(testCode, components, codeUtils) {
         // Expressions and operators.
-        var test = Object.create(testCode.testCodePrototype(), {
-            score: {value: 0},
-            history: {value: []},
-            get: {value: function(type){
-                var fragment;
-                fragment = components.test.get(true);
-                fragment = components.test.get();
-                fragment = components.test.get();
-                fragment = components.test.get();
-                return fragment;
-            }}
-        });
         var varDeclaration = Object.create(testCode.testCodePrototype(), {
-            score: {value: 0},
-            history: {value: []},
             get: {value: function(type){
                 var expressions = [this];
                 var componentsList = [
@@ -23,28 +10,53 @@ define(["testCode", "components", "codeUtils"], function(testCode, components, c
                     components.identifier,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, expressions);
+                var test = codeUtils.makeTest(type, componentsList, "Expression varDeclaration");
                 return test;
             }}
         });
         var assignmentNum = Object.create(testCode.testCodePrototype(), {
-            score: {value: 0},
-            history: {value: []},
             get: {value: function(type){
-                var expressions = [this];
+                var componentsList = [
+                    components.identifier,//x
+                    components.space,//
+                    components.assignment,//=
+                    components.space,       //
+                    components.number,//5
+                    components.semicolon//;
+                ];
+                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentNum");
+                return test;
+            }}
+        });
+        var assignmentStr = Object.create(testCode.testCodePrototype(), {
+            get: {value: function(type){
                 var componentsList = [
                     components.identifier,
                     components.space,
                     components.assignment,
                     components.space,
-                    components.number,
+                    components.string,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, expressions);
+                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentStr");
                 return test;
             }}
         });
-    return {test, varDeclaration, assignmentNum};
+        var assignmentObj = Object.create(testCode.testCodePrototype(), {
+            get: {value: function(type){
+                var componentsList = [
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.object,
+                    components.semicolon
+                ];
+                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                return test;
+            }}
+        });
+    return {varDeclaration, assignmentNum, assignmentStr, assignmentObj};
 });
 
 // component
