@@ -138,15 +138,16 @@ tests, codeUtils) {
         console.log("Level Score: ", tests[level].getScore())
         console.log("Lowest Score: ", lowestScore);
 
-        if(tests[level].getScore() > 110 && lowestScore > 110) {
+        if(level >= (tests.length - 1)){
+            $(".background").html("<div class='won'>You Won! Keep playing!</div>");
+        } else if(tests[level].getScore() > 150 && lowestScore > 125) {
             levelUp();
-            debugger;
         }
 
         //cleanup
         setQuestion(false);
         setTimeout(function() {
-            //$(".window").removeClass("js-showAnswer");
+            $(".window").removeClass("js-showAnswer");
             $(".background").removeClass("js-correct");
             $(".background").removeClass("js-incorrect");
             runTest2();

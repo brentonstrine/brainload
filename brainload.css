@@ -15,7 +15,10 @@ body {
     z-index: 1;
     padding-bottom: 8em;
 }
-
+.won {
+    text-align: center;
+    font-size: 3rem;
+}
 .code {
     min-width: 100px;
     background-color: rgb(113, 160, 240);

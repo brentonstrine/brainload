@@ -189,11 +189,11 @@ define(["utils", "testCode"], function(utils, testCode) {
             score = this.getScore();
             if(score < 120){
                 value = utils.pickFromArr([simpleNumber(type)]);
-            }else if (score < 140){
+            } else if (score < 140) {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type)]);
-            }else if (score < 150){
+            } else if (score < 160) {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type), simpleObject(type)]);
-            }else if (score < 160){
+            } else if (score < 190) {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type), simpleObject(type), simpleIdentifier(type)]);
             }
 
