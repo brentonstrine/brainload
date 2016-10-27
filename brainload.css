@@ -4,7 +4,7 @@ body {
 }
 .window {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     position: absolute;
     left: 0;
@@ -13,11 +13,12 @@ body {
     bottom: 0;
     justify-content: center;
     z-index: 1;
-    padding-bottom: 8em;
+    padding-bottom: 2rem;
+    margin-top: 2rem;
 }
-.won {
-    text-align: center;
-    font-size: 3rem;
+.level input {width: 24em; margin-left: 2em;}
+.history {
+    opacity: .5;
 }
 .code {
     min-width: 100px;
@@ -31,6 +32,12 @@ body {
 }
 .code > div {
     white-space: nowrap;
+}
+.result {
+    height: 0px;
+    font-size: 5rem;
+    margin-top: -7rem;
+    margin-bottom: 7rem;
 }
 .controls {
     min-height: 3em;
@@ -46,7 +53,7 @@ body {
     display: inline-block;
     padding: 1em;
     text-align: center;
-    width: 5em;
+    width: 6em;
 }
 
 .correct, .error {

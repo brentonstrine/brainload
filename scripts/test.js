@@ -62,14 +62,15 @@ tests, codeUtils) {
             //award more points if the answer was false.
             points = (answer == true) ? 2 : 10;
             $(".background").addClass("js-correct");
+            var emoji = "✅";// utils.pickFromArr(["👌","💯", "👍", "🙌", "🙆", "👏", "✅", "🤘", "🎉", "💃", "👯", "🎊", "😀", "😉", "😊", "😋", "😍", "😘", "🤗", "🤓", "😛", "😜", "😝"])
+            $(".window .result").html(emoji);
+            $(".background .history").append(emoji);
         } else {
         // Incorrect
             //deduct more points if the answer was false.
             points = (answer == true) ? -5 : -20;
-
-            console.log(question);
-            console.log("Wrong!!! Answer was ", answer);
-
+            $(".window .result").html("❌");
+            $(".background .history").append("❌");
             $(".background").addClass("js-incorrect");
             $(".window").addClass("js-showAnswer");
             delay = 1900; // should match .js-incorrect animation-duration
@@ -139,17 +140,26 @@ tests, codeUtils) {
         console.log("Lowest Score: ", lowestScore);
 
         if(level >= (tests.length - 1)){
-            $(".background").html("<div class='won'>You Won! Keep playing!</div>");
+            $(".window .result").html("🎓<br>You Won! Keep playing!");
         } else if(tests[level].getScore() > 150 && lowestScore > 117) {
-            $(".background").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div><div class='won'>Level up!!!</div>");
+            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div>");
+            $(".window .result").html("🎓<br>Level Up!!!");
+            $(".background .history").append("<span class='graduate'>🎓</span><br>");
             levelUp();
         } else {
-            $(".background").html("<div>Level "+level+"</div>");
+            var fakeLevels = [
+                "x7T06dg",
+                "h2G1s7l",
+                "q6f2S0M",
+                "e9J3a5I",
+            ];
+            $(".background .level").html("Level "+level+". <input type='text' value='http://brainloader.shoutleaf.com/?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup
         setQuestion(false);
         setTimeout(function() {
+            $(".window .result").html("");
             $(".window").removeClass("js-showAnswer");
             $(".background").removeClass("js-correct");
             $(".background").removeClass("js-incorrect");
@@ -157,28 +167,12 @@ tests, codeUtils) {
         }, delay);
         console.groupEnd();
     };
-
-    var evaluateLevels = function(){
-        console.group("Check Levels");
-        console.log(patterns[level].level,"/", level);
-        if(patterns[level].level > 5) {
-            level++;
-            console.log("level++: ", level);
-            console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        } else {
-            console.log(patterns[level].level, " is less than 6.");
-        }
-
-        console.groupEnd();
-    };
-
     return {
         levelUp,
         getQuestion,
         setQuestion,
         runTest2,
         checkResult,
-        evaluateLevels
     }
 
 });
