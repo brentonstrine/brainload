@@ -1,16 +1,16 @@
 define(["testCode", "components", "expressions"], function(testCode, components, expressions) {
 
-    var getProbabilities = function(componentList){
-        var l = componentList.length;
+    var getProbabilities = function(partList){
+        var l = partList.length;
         var inverseList = [];
         var inverseTotal = 0;
         var probabilityList = [];
 
         for(i=0;i<l;i++){
-            if(typeof componentList[i] == "undefined") {
+            if(typeof partList[i] == "undefined") {
                 debugger;
             }
-            var inverseScore = 1 / (componentList[i].getScore());
+            var inverseScore = 1 / (partList[i].getScore());
             inverseScore = inverseScore ** 2; //higher numbers increase the income gap
             inverseList.push(inverseScore);
             inverseTotal += inverseScore;
@@ -24,23 +24,23 @@ define(["testCode", "components", "expressions"], function(testCode, components,
         ;}
 
 
-        ;console.log(probabilityList, check);
+        //;console.log(probabilityList, check);
         return probabilityList;
     };
 
-    var getPoints = function(componentList){
+    var getPoints = function(partList){
         var points = [];
-        for(getPointsId=0;getPointsId<componentList.length;getPointsId++){
-            points.push(componentList[getPointsId].getScore());
+        for(getPointsId=0;getPointsId<partList.length;getPointsId++){
+            points.push(partList[getPointsId].getScore());
         }
         return points;
     };
 
     // getRandomProportionallyFrom
-    var chooseCode = function(componentList){
-        var probabilityList = getProbabilities(componentList);
+    var chooseCode = function(partList){
+        var probabilityList = getProbabilities(partList);
         var r = Math.random();
-        for(i=0;i<componentList.length;i++){
+        for(i=0;i<partList.length;i++){
             if(r < probabilityList[i]){
                 return i;
             }
@@ -55,36 +55,37 @@ define(["testCode", "components", "expressions"], function(testCode, components,
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
-    var makeTest = function(type, componentList){
+    var makeTest = function(answerType, partList, name){
         var testString = "";
         //answer to this test is FALSE
-        if(!type){
-            console.log("the answer will be FALSE");
-            var errLocation = chooseCode(componentList);
+        if(!answerType){
+            //console.log("the answer will be FALSE");
+            var errLocation = chooseCode(partList);
 
             //get each component
-            for(i=0;i<componentList.length;i++){
+            for(i=0;i<partList.length;i++){
                 if(i===errLocation){
-                    testString += componentList[i].get(false);
+                    testString += partList[i].get(false);
                 } else {
-                    testString += componentList[i].get(true);
+                    testString += partList[i].get(true);
                 }
             }
             return {
                 string: testString,
                 answer: false,
                 errLocation: errLocation,
-                components: componentList
+                components: partList
             };
         } else {
-            for(i=0;i<componentList.length;i++){
-                testString += componentList[i].get(true);
+            for(i=0;i<partList.length;i++){
+                testString += partList[i].get(true);
             }
             return {
+                name: name,
                 string: testString,
                 answer: true,
                 errLocation: null,
-                components: componentList
+                components: partList
             };
         }
     };

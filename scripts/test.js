@@ -14,6 +14,25 @@ tests, codeUtils) {
     var levelUp = function(){
         level++;
         testList.push(tests[level]);
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++");
+        console.log("++++++++++++++++++");
+        console.log("+++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log("++++++++++++LEVEL UP +++++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
     };
     var getQuestion = function(){
         return currentQuestion;
@@ -23,7 +42,8 @@ tests, codeUtils) {
     };
 
     var runTest2 = function(){
-        console.log("--- building new question -------------------------------------------------");
+        console.group("runTest2");
+        console.log("--- building new question (" +level+ ") ------------------------------------------");
 
         //decide if test will be true or false
         var testType = Math.round(Math.random());
@@ -34,20 +54,24 @@ tests, codeUtils) {
         setQuestion(q);
 
         //get test string
-        var testMarkup;
+        var testMarkup = "";
         for(i=0;i<q.lines.length;i++){
-            testMarkup += '<span class="line' + i + '">';
+            testMarkup += '<div class="line' + i + '">';
             testMarkup += q.lines[i].string;
-            testMarkup += '</span>';
+            testMarkup += '</div>';
         }
 
         // insert test code into window
         $(".window .code").html(testMarkup);
 
-        console.log("--- waiting on your answer -------------------------------------------------");
+        console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
+
+        console.groupEnd();
     };
 
     var checkResult = function(result) {
+        console.group("CheckResult");
+        console.log("result", result);
         var delay = 200;
         var question = getQuestion();
         var answer = question.answer;
@@ -65,16 +89,14 @@ tests, codeUtils) {
         // Incorrect
             //deduct more points if the answer was false.
             points = (answer == true) ? -1 : -10;
+
         //     currentQuestion.pattern.level--;
         //     currentQuestion.currentlyTesting.level--;
         //      result = false;
-        //     console.log("Wrong!!! Answer was ", currentQuestion.answer,
-        //         "Level down to ", currentQuestion.pattern.level,
-        //         "!\nTest was: \n", currentQuestion.test,
-        //         "!\nComponent ID was: \n", currentQuestion.wrongComponent,
-        //         "!\nComponent was: \n", currentQuestion.currentComponents ? currentQuestion.currentComponents[0].component.get(false) : ""
-        //
-        //     );
+
+            console.log(question);
+            console.log("Wrong!!! Answer was ", answer);
+
             $(".background").addClass("js-incorrect");
             $(".window").addClass("js-showAnswer");
             delay = 1900; // should match .js-incorrect animation-duration
@@ -83,12 +105,13 @@ tests, codeUtils) {
         var lowestScore = 9999;
         // parse through the current question
         for(i=0;i<question.lines.length;i++){
+            console.log("line ", i)
 
             if(question.lines[i].answer===false){// if the answer was false, update score only of the trick part
                 var errLoc = question.lines[i].errLocation;
                 question.lines[i].components[errLoc].updateScore(points);
                 question.lines[i].components[errLoc].addToHistory(score);
-                console.log("errLoc: ", errLoc, " -> ", points);
+                //console.log("errLoc: ", errLoc, " -> ", points);
                 for(j=0;j<question.lines[i].components.length;j++){
                     var thisScore = question.lines[i].components[j].getScore();
                     if(thisScore < lowestScore){
@@ -106,21 +129,36 @@ tests, codeUtils) {
                 }
             }
 
-            console.log("Lowest Score: ", lowestScore)
-            console.log(codeUtils.getPoints(question.lines[i].components));
+            console.log("Lowest Score: ", lowestScore);
         }
-        // if(lowestScore > 115) {
-        //     alert("level up!")
-        // }
+            if(level == 0 && lowestScore > 125) {
+                levelUp();
+            } else if (level == 1 && lowestScore > 135) {
+                alert(lowestScore);
+                levelUp();
+            } else if (level == 2 && lowestScore > 145) {
+                alert(lowestScore);
+                levelUp();
+            } else if (level == 3 && lowestScore > 155) {
+                alert(lowestScore);
+                levelUp();
+            } else if (level == 4 && lowestScore > 165) {
+                alert(lowestScore);
+                levelUp();
+            } else if (level == 5 && lowestScore > 175) {
+                alert(lowestScore);
+                levelUp();
+            }
 
         //cleanup
         setQuestion(false);
         setTimeout(function() {
-            $(".window").removeClass("js-showAnswer");
+            //$(".window").removeClass("js-showAnswer");
             $(".background").removeClass("js-correct");
             $(".background").removeClass("js-incorrect");
-            runTest2();
+            //runTest2();
         }, delay);
+        console.groupEnd();
     };
 
     var evaluateLevels = function(){

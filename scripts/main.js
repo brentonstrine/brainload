@@ -11,6 +11,8 @@ $(function(){
                 } else if(e.which == 37){ //left arrow
                     test.checkResult(false);
                 }
+            } else if(e.which == 40){ //down arrow
+                test.runTest2();
             } else {
                 console.log ("whoa there! Slow down!")
             }

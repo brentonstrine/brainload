@@ -2,11 +2,16 @@ define([], function() {
   return {
       testCodePrototype: function(){
           var score = 100;
+          //var levelPoints = 0;
           var history = [];
           var specialPart = null;
 
           this.updateScore = function(amount){
               score += amount;
+            //   levelPoints += amount;
+            //   if(levelPoints>30){
+            //
+            //   }
           };
           this.getScore = function(){
               return score;
