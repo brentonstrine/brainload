@@ -11,20 +11,22 @@ function(testCode, components, codeUtils) {
                     components.semicolon
                 ];
                 var test = codeUtils.makeTest(type, componentsList, "Expression varDeclaration");
+                test.string = "<div>" + test.string + "</div>";
                 return test;
             }}
         });
         var assignmentNum = Object.create(testCode.testCodePrototype(), {
             get: {value: function(type){
                 var componentsList = [
-                    components.identifier,//x
-                    components.space,//
-                    components.assignment,//=
-                    components.space,       //
-                    components.number,//5
-                    components.semicolon//;
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.number,
+                    components.semicolon
                 ];
                 var test = codeUtils.makeTest(type, componentsList, "Expression assignmentNum");
+                test.string = "<div>" + test.string + "</div>";
                 return test;
             }}
         });
@@ -39,6 +41,7 @@ function(testCode, components, codeUtils) {
                     components.semicolon
                 ];
                 var test = codeUtils.makeTest(type, componentsList, "Expression assignmentStr");
+                test.string = "<div>" + test.string + "</div>";
                 return test;
             }}
         });
@@ -53,6 +56,7 @@ function(testCode, components, codeUtils) {
                     components.semicolon
                 ];
                 var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                test.string = "<div>" + test.string + "</div>";
                 return test;
             }}
         });

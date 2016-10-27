@@ -20,7 +20,7 @@ define([], function() {
               history.push(item);
           };
           this.setSpecialPart = function(part){
-              specialPart = this.get(true);
+              specialPart = this.get(true).string;
           };
           this.passPart = function(part, type){
               specialPart = part;

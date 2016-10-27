@@ -5,21 +5,19 @@ define(["testCode", "components", "expressions"], function(testCode, components,
         var inverseList = [];
         var inverseTotal = 0;
         var probabilityList = [];
-
-        for(i=0;i<l;i++){
+        for(var i=0;i<l;i++){
             if(typeof partList[i] == "undefined") {
-                debugger;
             }
             var inverseScore = 1 / (partList[i].getScore());
             inverseScore = inverseScore ** 2; //higher numbers increase the income gap
             inverseList.push(inverseScore);
             inverseTotal += inverseScore;
         }
-        for(i=0;i<l;i++){
+        for(var i=0;i<l;i++){
             probabilityList.push(inverseList[i]/inverseTotal);
         }
         ;var check = 0;
-        ;for(i=0;i<l;i++){
+        ;for(var i=0;i<l;i++){
         ;   check += probabilityList[i];
         ;}
 
@@ -40,7 +38,7 @@ define(["testCode", "components", "expressions"], function(testCode, components,
     var chooseCode = function(partList){
         var probabilityList = getProbabilities(partList);
         var r = Math.random();
-        for(i=0;i<partList.length;i++){
+        for(var i=0;i<partList.length;i++){
             if(r < probabilityList[i]){
                 return i;
             }
@@ -57,35 +55,44 @@ define(["testCode", "components", "expressions"], function(testCode, components,
 
     var makeTest = function(answerType, partList, name){
         var testString = "";
+        var resultList = [];
         //answer to this test is FALSE
         if(!answerType){
             //console.log("the answer will be FALSE");
             var errLocation = chooseCode(partList);
 
             //get each component
-            for(i=0;i<partList.length;i++){
+            for(var i=0;i<partList.length;i++){
                 if(i===errLocation){
-                    testString += partList[i].get(false);
+                    var result = partList[i].get(false);
+                    resultList.push(result);
+                    testString += result.string;
                 } else {
-                    testString += partList[i].get(true);
+                    var result = partList[i].get(true)
+                    resultList.push(result);
+                    testString += result.string;
                 }
-            }
-            return {
-                string: testString,
-                answer: false,
-                errLocation: errLocation,
-                components: partList
-            };
-        } else {
-            for(i=0;i<partList.length;i++){
-                testString += partList[i].get(true);
             }
             return {
                 name: name,
                 string: testString,
-                answer: true,
-                errLocation: null,
-                components: partList
+                answer: answerType,
+                errLocation: errLocation,
+                components: partList,
+                resultList: resultList
+            };
+        } else {
+            for(var i=0;i<partList.length;i++){
+                var result = partList[i].get(true);
+                resultList.push(result);
+                testString += result.string;
+            }
+            return {
+                name: name,
+                string: testString,
+                answer: answerType,
+                components: partList,
+                resultList: resultList
             };
         }
     };

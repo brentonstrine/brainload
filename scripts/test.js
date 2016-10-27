@@ -53,16 +53,8 @@ tests, codeUtils) {
         var q = testList[testId].get(testType);
         setQuestion(q);
 
-        //get test string
-        var testMarkup = "";
-        for(i=0;i<q.lines.length;i++){
-            testMarkup += '<div class="line' + i + '">';
-            testMarkup += q.lines[i].string;
-            testMarkup += '</div>';
-        }
-
         // insert test code into window
-        $(".window .code").html(testMarkup);
+        $(".window .code").html(q.string);
 
         console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
 
@@ -70,7 +62,7 @@ tests, codeUtils) {
     };
 
     var checkResult = function(result) {
-        console.group("CheckResult");
+        console.group("checkResult");
         console.log("result", result);
         var delay = 200;
         var question = getQuestion();
@@ -80,19 +72,12 @@ tests, codeUtils) {
         if(score){
         // Correct
             //award more points if the answer was false.
-            points = (answer == true) ? 1 : 10;
-
-        //     result = true;
-        //    console.log("Correct! level up to ", currentQuestion.pattern.level, "!");
+            points = (answer == true) ? 2 : 10;
             $(".background").addClass("js-correct");
         } else {
         // Incorrect
             //deduct more points if the answer was false.
-            points = (answer == true) ? -1 : -10;
-
-        //     currentQuestion.pattern.level--;
-        //     currentQuestion.currentlyTesting.level--;
-        //      result = false;
+            points = (answer == true) ? -5 : -20;
 
             console.log(question);
             console.log("Wrong!!! Answer was ", answer);
@@ -103,52 +88,79 @@ tests, codeUtils) {
         }
 
         var lowestScore = 9999;
-        // parse through the current question
-        for(i=0;i<question.lines.length;i++){
-            console.log("line ", i)
+        var scoreObj = [];
+        // parse through each expression
+        for(var i=0;i<question.resultList.length;i++){
+            var thisExpression = question.resultList[i];
+            var thisExpressionObject = question.components[i];
 
-            if(question.lines[i].answer===false){// if the answer was false, update score only of the trick part
-                var errLoc = question.lines[i].errLocation;
-                question.lines[i].components[errLoc].updateScore(points);
-                question.lines[i].components[errLoc].addToHistory(score);
-                //console.log("errLoc: ", errLoc, " -> ", points);
-                for(j=0;j<question.lines[i].components.length;j++){
-                    var thisScore = question.lines[i].components[j].getScore();
+            //update expression score
+            thisExpressionObject.updateScore(points);
+
+            //get score of expression
+            scoreObj[i] = {expression: thisExpressionObject.getScore()};
+            scoreObj[i].components = [];
+
+            console.log("expression" + i + ": " + thisExpressionObject.getScore())
+
+            if(thisExpression.answer===false){// if the answer was false for this expression
+
+                //only update score of trick part
+                var errLoc = thisExpression.errLocation;
+                thisExpression.components[errLoc].updateScore(points);
+                thisExpression.components[errLoc].addToHistory(score);
+
+                //get score of each component
+                for(var j=0;j<thisExpression.components.length;j++){
+                    var thisScore = thisExpression.components[j].getScore();
+                    scoreObj[i].components[j] = thisScore;
+                    console.log("expression" + i + ".component"+j+": " + thisExpressionObject.getScore())
+
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
                     }
                 }
             } else {//if the answer was true, update score of all parts
-                for(j=0;j<question.lines[i].components.length;j++){
-                    question.lines[i].components[j].updateScore(points);
-                    question.lines[i].components[j].addToHistory(score);
-                    var thisScore = question.lines[i].components[j].getScore();
+
+                for(var j=0;j<thisExpression.components.length;j++){
+                    //update all component scores
+                    thisExpression.components[j].updateScore(points);
+                    thisExpression.components[j].addToHistory(score);
+
+                    //get score of components
+                    var thisScore = thisExpression.components[j].getScore();
+                    scoreObj[i].components[j] = thisScore;
+                    console.log("expression" + i + ".component"+j+": " + thisExpressionObject.getScore())
+
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
                     }
                 }
             }
-
-            console.log("Lowest Score: ", lowestScore);
         }
-            if(level == 0 && lowestScore > 125) {
-                levelUp();
-            } else if (level == 1 && lowestScore > 135) {
-                alert(lowestScore);
-                levelUp();
-            } else if (level == 2 && lowestScore > 145) {
-                alert(lowestScore);
-                levelUp();
-            } else if (level == 3 && lowestScore > 155) {
-                alert(lowestScore);
-                levelUp();
-            } else if (level == 4 && lowestScore > 165) {
-                alert(lowestScore);
-                levelUp();
-            } else if (level == 5 && lowestScore > 175) {
-                alert(lowestScore);
-                levelUp();
-            }
+
+        console.log("Score: ", scoreObj);
+        console.log("Lowest Score: ", lowestScore);
+
+
+        if(level == 0 && lowestScore > 125) {
+            levelUp();
+        } else if (level == 1 && lowestScore > 135) {
+            alert(lowestScore);
+            levelUp();
+        } else if (level == 2 && lowestScore > 145) {
+            alert(lowestScore);
+            levelUp();
+        } else if (level == 3 && lowestScore > 155) {
+            alert(lowestScore);
+            levelUp();
+        } else if (level == 4 && lowestScore > 165) {
+            alert(lowestScore);
+            levelUp();
+        } else if (level == 5 && lowestScore > 175) {
+            alert(lowestScore);
+            levelUp();
+        }
 
         //cleanup
         setQuestion(false);

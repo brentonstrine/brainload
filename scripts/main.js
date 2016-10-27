@@ -17,8 +17,6 @@ $(function(){
                 console.log ("whoa there! Slow down!")
             }
         });
-
-        test.levelUp();
         test.runTest2();
     });
 });
