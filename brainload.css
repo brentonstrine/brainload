@@ -76,6 +76,7 @@ body {
 .component-error .component-missing {
     display: inline-block;
     width: 0;
+    color: transparent;
 }
 .component-error .component-required {
     transition: width 1s ease;

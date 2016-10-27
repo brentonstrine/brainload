@@ -140,8 +140,11 @@ tests, codeUtils) {
 
         if(level >= (tests.length - 1)){
             $(".background").html("<div class='won'>You Won! Keep playing!</div>");
-        } else if(tests[level].getScore() > 150 && lowestScore > 125) {
+        } else if(tests[level].getScore() > 150 && lowestScore > 117) {
+            $(".background").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div><div class='won'>Level up!!!</div>");
             levelUp();
+        } else {
+            $(".background").html("<div>Level "+level+"</div>");
         }
 
         //cleanup
