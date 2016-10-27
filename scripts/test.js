@@ -14,21 +14,6 @@ tests, codeUtils) {
     var levelUp = function(){
         level++;
         testList.push(tests[level]);
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++");
-        console.log("++++++++++++++++++");
-        console.log("+++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++++++++++++++++++++++++++++++++");
         console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
         console.log("++++++++++++LEVEL UP +++++++++++++++++++++++++++++++");
         console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -50,11 +35,12 @@ tests, codeUtils) {
 
         //pick which code we're going to test
         var testId = codeUtils.chooseCode(testList);
-        var q = testList[testId].get(testType);
-        setQuestion(q);
+        var qObject = testList[testId];
+        var qResult = qObject.get(testType);
+        setQuestion({object: qObject, result: qResult});
 
         // insert test code into window
-        $(".window .code").html(q.string);
+        $(".window .code").html(qResult.string);
 
         console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
 
@@ -65,7 +51,9 @@ tests, codeUtils) {
         console.group("checkResult");
         console.log("result", result);
         var delay = 200;
-        var question = getQuestion();
+        var currentQuestion = getQuestion();
+        var questionObject = currentQuestion.object;
+        var question = currentQuestion.result;
         var answer = question.answer;
         var score = (result == answer) ? true : false;
         var points;
@@ -89,6 +77,12 @@ tests, codeUtils) {
 
         var lowestScore = 9999;
         var scoreObj = [];
+
+        //update level score
+        questionObject.updateScore(points);
+        console.log("Test Score ---: " + questionObject.getScore())
+
+
         // parse through each expression
         for(var i=0;i<question.resultList.length;i++){
             var thisExpression = question.resultList[i];
@@ -112,9 +106,10 @@ tests, codeUtils) {
 
                 //get score of each component
                 for(var j=0;j<thisExpression.components.length;j++){
+                    
                     var thisScore = thisExpression.components[j].getScore();
                     scoreObj[i].components[j] = thisScore;
-                    console.log("expression" + i + ".component"+j+": " + thisExpressionObject.getScore())
+                    console.log("expression" + i + ".component"+j+": " + thisExpression.components[j].getScore())
 
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
@@ -130,7 +125,7 @@ tests, codeUtils) {
                     //get score of components
                     var thisScore = thisExpression.components[j].getScore();
                     scoreObj[i].components[j] = thisScore;
-                    console.log("expression" + i + ".component"+j+": " + thisExpressionObject.getScore())
+                    console.log("expression" + i + ".component"+j+": " + thisExpression.components[j].getScore())
 
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
@@ -139,27 +134,13 @@ tests, codeUtils) {
             }
         }
 
-        console.log("Score: ", scoreObj);
+        console.log("Scores: ", scoreObj);
+        console.log("Level Score: ", tests[level].getScore())
         console.log("Lowest Score: ", lowestScore);
 
-
-        if(level == 0 && lowestScore > 125) {
+        if(tests[level].getScore() > 110 && lowestScore > 110) {
             levelUp();
-        } else if (level == 1 && lowestScore > 135) {
-            alert(lowestScore);
-            levelUp();
-        } else if (level == 2 && lowestScore > 145) {
-            alert(lowestScore);
-            levelUp();
-        } else if (level == 3 && lowestScore > 155) {
-            alert(lowestScore);
-            levelUp();
-        } else if (level == 4 && lowestScore > 165) {
-            alert(lowestScore);
-            levelUp();
-        } else if (level == 5 && lowestScore > 175) {
-            alert(lowestScore);
-            levelUp();
+            debugger;
         }
 
         //cleanup
@@ -168,7 +149,7 @@ tests, codeUtils) {
             //$(".window").removeClass("js-showAnswer");
             $(".background").removeClass("js-correct");
             $(".background").removeClass("js-incorrect");
-            //runTest2();
+            runTest2();
         }, delay);
         console.groupEnd();
     };

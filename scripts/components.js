@@ -158,6 +158,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
+
     var semicolon  = Object.create(testCode.testCodePrototype(), {
         get: {value: function(type){
             var name = "Component Semicolon";
@@ -179,6 +180,67 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
+
+    var value = Object.create(testCode.testCodePrototype(), {
+        get: {value: function(type){
+            var name = "Component Value";
+            var fragment  = '<span class="component component-string ';
+            var value;
+            if(value.score < 120){
+                value = utils.pickFromArr([simpleNumber()]);
+            }else if (value.score < 140){
+                value = utils.pickFromArr([simpleNumber(), simpleString()]);
+            }else if (value.score < 150){
+                value = utils.pickFromArr([simpleNumber(), simpleString(), simpleObject()]);
+            }else if (value.score < 160){
+                value = utils.pickFromArr([simpleNumber(), simpleString(), simpleObject(), simpleIdentifier()]);
+            }
+
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += value;
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += value;
+            }
+            fragment += '</span>';
+            fragment += "<span class='component-explanation'>string</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
+    var simpleNumber  = function(type){
+        if(type==true){
+            return utils.pickFrom(0,999);
+        } else {
+            return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", "&", "+", ", ", "; ", "var"]);
+        }
+    };
+    var simpleString  = function(type){
+        if(type==true){
+            return utils.pickFromArr(['"x"', '"y"', '"z"', '"myVarName"', '"monkey"', '"A"', '"B"', '"C"', '"string"', '"value"']);
+        } else {
+            return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "<span class='component-missing'>&nbsp;</span>", "<span class='component-missing'>&nbsp;</span>", ";", "=", "-", utils.pickFrom(0,999), utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C", "identifier", "name"]) ]);
+        }
+    };
+    var simpleObject  = function(type){
+        if(type==true){
+            return "{}";
+        } else {
+            return utils.pickFromArr(["{", "}", "}{", "<span class='component-missing'>&nbsp;</span>", "{]", "[}", "<>"]);
+        }
+    };
+    var simpleIdentifier  = function(type){
+        if(type==true){
+            return utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C", "Identifier", "identifier", "name"]);;
+        } else {
+            return utils.pickFromArr([utils.pickFrom(0,999), "<span class='component-missing'>x</span>", ";", "=", "-", utils.pickFrom(0,999), utils.pickFromArr(['"x"', '"y"', '"z"', '"myVarName"', '"monkey"', '"A"', '"B"', '"C"', '"string"'])]);
+        }
+    };
+
 
     return {
         variable,
