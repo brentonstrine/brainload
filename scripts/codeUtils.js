@@ -54,7 +54,7 @@ define(["testCode", "components", "expressions"], function(testCode, components,
 
     var makeTest = function(answerType, partList, name){
         var testString = "";
-        var resultList = [];
+        var guessList = [];
         //answer to this test is FALSE
         if(!answerType){
             //console.log("the answer will be FALSE");
@@ -64,11 +64,11 @@ define(["testCode", "components", "expressions"], function(testCode, components,
             for(var i=0;i<partList.length;i++){
                 if(i===errLocation){
                     var result = partList[i].get(false);
-                    resultList.push(result);
+                    guessList.push(result);
                     testString += result.string;
                 } else {
                     var result = partList[i].get(true)
-                    resultList.push(result);
+                    guessList.push(result);
                     testString += result.string;
                 }
             }
@@ -78,12 +78,12 @@ define(["testCode", "components", "expressions"], function(testCode, components,
                 answer: answerType,
                 errLocation: errLocation,
                 components: partList,
-                resultList: resultList
+                guessList: guessList
             };
         } else {
             for(var i=0;i<partList.length;i++){
                 var result = partList[i].get(true);
-                resultList.push(result);
+                guessList.push(result);
                 testString += result.string;
             }
             return {
@@ -91,7 +91,7 @@ define(["testCode", "components", "expressions"], function(testCode, components,
                 string: testString,
                 answer: answerType,
                 components: partList,
-                resultList: resultList
+                guessList: guessList
             };
         }
     };

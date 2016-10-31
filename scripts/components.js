@@ -247,11 +247,9 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
     var badValue  = function(){
-        debugger;
             return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", "&", "+", ", ", "; ", "var","{", "}", "}{", "{]", "[}", "<>"]);
     };
     var goodValue  = function(){
-        debugger;
             return utils.pickFromArr([simpleNumber(true), simpleString(true), simpleObject(true), simpleIdentifier(true)]);
     };
 
