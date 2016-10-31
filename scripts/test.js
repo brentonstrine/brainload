@@ -9,15 +9,16 @@ tests, codeUtils) {
     var runCount = 0;
     var testList = [tests[0]];
     var parent = this;
-
+    var won = false;
 
     var levelUp = function(){
-        level++;
-        testList.push(tests[level]);
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log("++++++++++++LEVEL UP +++++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
+        if( (level + 1) == tests.length ){
+            won = true;
+        }else {
+            level++;
+            testList.push(tests[level]);
+            console.log("++++++++++++ LEVEL UP +++++++++++++");
+    }
     };
     var getQuestion = function(){
         return currentQuestion;
@@ -62,15 +63,15 @@ tests, codeUtils) {
             //award more points if the answer was false.
             points = (answer == true) ? 2 : 10;
             $(".background").addClass("js-correct");
-            var emoji = "✅";// utils.pickFromArr(["👌","💯", "👍", "🙌", "🙆", "👏", "✅", "🤘", "🎉", "💃", "👯", "🎊", "😀", "😉", "😊", "😋", "😍", "😘", "🤗", "🤓", "😛", "😜", "😝"])
+            var emoji = "✅ ";// utils.pickFromArr(["👌","💯", "👍", "🙌", "🙆", "👏", "✅", "🤘", "🎉", "💃", "👯", "🎊", "😀", "😉", "😊", "😋", "😍", "😘", "🤗", "🤓", "😛", "😜", "😝"])
             $(".window .result").html(emoji);
             $(".background .history").append(emoji);
         } else {
         // Incorrect
             //deduct more points if the answer was false.
             points = (answer == true) ? -5 : -20;
-            $(".window .result").html("❌");
-            $(".background .history").append("❌");
+            $(".window .result").html("❌ ");
+            $(".background .history").append("❌ ");
             $(".background").addClass("js-incorrect");
             $(".window").addClass("js-showAnswer");
             delay = 1900; // should match .js-incorrect animation-duration
@@ -139,11 +140,11 @@ tests, codeUtils) {
         console.log("Level Score: ", tests[level].getScore())
         console.log("Lowest Score: ", lowestScore);
 
-        if(level >= (tests.length - 1)){
-            $(".window .result").html("🎓<br>You Won! Keep playing!");
+        if(won || level > (tests.length - 1) ){
+            $(".window .result").html("You 🎓 Won!");
         } else if(tests[level].getScore() > 150 && lowestScore > 117) {
             $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div>");
-            $(".window .result").html("🎓<br>Level Up!!!");
+            $(".window .result").html("Level 🎓 Up!!!");
             $(".background .history").append("<span class='graduate'>🎓</span><br>");
             levelUp();
         } else {

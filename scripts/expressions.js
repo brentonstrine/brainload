@@ -68,6 +68,25 @@ function(testCode, components, codeUtils) {
                     components.assignment,
                     components.space,
                     components.object,
+                    components.semicolon,
+                ];
+                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                test.string = "<div>" + test.string + "</div>";
+                return test;
+            }}
+        });
+        var assignmentOp = Object.create(testCode.testCodePrototype(), {
+            get: {value: function(type){
+                var componentsList = [
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.number,
+                    components.space,
+                    components.operator,
+                    components.space,
+                    components.number,
                     components.semicolon
                 ];
                 var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
@@ -75,7 +94,7 @@ function(testCode, components, codeUtils) {
                 return test;
             }}
         });
-    return {varDeclaration, assignmentNum, assignmentStr, assignmentObj, assignmentVal};
+    return {varDeclaration, assignmentNum, assignmentStr, assignmentObj, assignmentVal, assignmentOp};
 });
 
 // component

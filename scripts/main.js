@@ -20,7 +20,7 @@ $(function(){
         var urlLevel = utils.getUrlParameter("hash");
 
         if(urlLevel){
-            for(var i=0;i<=parseInt(urlLevel[3]);i++){
+            for(var i=0;i<parseInt(urlLevel[3]);i++){
                 test.levelUp();
             }
         }

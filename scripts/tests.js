@@ -27,6 +27,7 @@ function(testCode, components, expressions, codeUtils) {
                 return test;
             }}
         }),
+        //2
         Object.create(testCode.testCodePrototype(), {
             get: {value: function(answerType){
                 var name = "Block Var Declaration and Two String Assignments";
@@ -34,6 +35,21 @@ function(testCode, components, expressions, codeUtils) {
                      expressions.varDeclaration,
                      expressions.assignmentVal,
                      expressions.assignmentVal,
+                ];
+                components.identifier.setSpecialPart();
+                var test = codeUtils.makeTest(answerType, expressionsList, name);
+                components.identifier.clearSpecialPart();
+
+                return test;
+            }}
+        }),
+        //3
+        Object.create(testCode.testCodePrototype(), {
+            get: {value: function(answerType){
+                var name = "Block. Assign to operation.";
+                var expressionsList = [
+                     expressions.varDeclaration,
+                     expressions.assignmentOp,
                 ];
                 components.identifier.setSpecialPart();
                 var test = codeUtils.makeTest(answerType, expressionsList, name);

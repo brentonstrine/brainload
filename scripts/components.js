@@ -213,12 +213,49 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
+
+    var operator = Object.create(testCode.testCodePrototype(), {
+        get: {value: function(type){
+            var name = "Component Operator";
+            var fragment  = '<span class="component component-value ';
+            var value;
+            score = this.getScore();
+            if(score < 120){
+                value = utils.pickFromArr([plus(type)]);
+            } else if (score < 140) {
+                value = utils.pickFromArr([plus(type), minus(type)]);
+            } else if (score < 160) {
+                value = utils.pickFromArr([plus(type), minus(type), times(type)]);
+            } else if (score < 190) {
+                value = utils.pickFromArr([plus(type), minus(type), times(type), divide(type)]);
+            }
+
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += value;
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += value;
+            }
+            fragment += '</span>';
+            fragment += "<span class='component-explanation'>value</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
     var badValue  = function(){
+        debugger;
             return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", "&", "+", ", ", "; ", "var","{", "}", "}{", "{]", "[}", "<>"]);
     };
     var goodValue  = function(){
+        debugger;
             return utils.pickFromArr([simpleNumber(true), simpleString(true), simpleObject(true), simpleIdentifier(true)]);
     };
+
+    // simple value types
     var simpleNumber  = function(type){
         if(type==true){
             return utils.pickFrom(0,999);
@@ -249,6 +286,39 @@ define(["utils", "testCode"], function(utils, testCode) {
     };
 
 
+    var badOperator  = function(){
+            return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", ";", "var", "<>", goodValue()]);
+    };
+    //operators
+    var plus  = function(type){
+        if(type==true){
+            return "+";
+        } else {
+            return badOperator();
+        }
+    };
+    var minus = function(type){
+        if(type==true){
+            return "-";
+        } else {
+            return badOperator();
+        }
+    };
+    var times = function(type){
+        if(type==true){
+            return "*";
+        } else {
+            return badOperator();
+        }
+    };
+    var divide = function(type){
+        if(type==true){
+            return "/";
+        } else {
+            return badOperator();
+        }
+    };
+
     return {
         variable,
         identifier,
@@ -258,5 +328,6 @@ define(["utils", "testCode"], function(utils, testCode) {
         space,
         string,
         value,
+        operator,
     };
 });
