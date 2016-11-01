@@ -40,6 +40,7 @@ define([], function() {
               specialPart = null;
           };
           return {
+              history: history,
               updateScore: this.updateScore,
               setScore: this.setScore,
               getScore: this.getScore,
