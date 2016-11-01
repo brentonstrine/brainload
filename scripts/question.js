@@ -31,7 +31,7 @@ questionList, codeUtils) {
             levelUp();
 
             // set level of this question
-            activeQuestionsList[i].setScore(150);
+            activeQuestionsList[i].setScore( 150 + (10 * (level - i)));
 
             //get the expressions in this question
             expressionList = questionList[i].getParts();
@@ -63,8 +63,7 @@ questionList, codeUtils) {
     };
 
     var buildTest = function(){
-        ;console.group("buildTest()");
-        ;console.log("--- building new question (" +level+ ") ------------------------------------------");
+        ;console.group("buildTest() at level "+ level);
 
         //decide if question will be true or false
         var testType = Math.round(Math.random());
@@ -78,33 +77,35 @@ questionList, codeUtils) {
         // insert question code into window
         $(".window .code").html(qResult.string);
 
-        ;console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
         ;console.groupEnd();
     };
 
 
     var checkGuess = function(guess) {
-        ;console.group("checkGuess");
-        ;console.log("guess", guess);
+        ;console.group("checkGuess()");
+        ;console.log("guess        : ", Boolean(guess));
         var delay = 200;
         var currentQuestion = getQuestion();
         var questionObject = currentQuestion.object;
         var question = currentQuestion.guess;
-        var answer = question.answer;
-        var score = (guess == answer) ? true : false;
+        var correctAnswer = question.answer;
+        var score = (guess == correctAnswer) ? true : false;
+
+        ;console.log("correctAnswer: ", Boolean(correctAnswer));
+        ;console.log("questionScore: ", score);
         var points;
         if(score){
         // Correct
-            //award more points if the answer was false.
-            points = (answer == true) ? 2 : 10;
+            //award more points if the correctAnswer was false.
+            points = (correctAnswer == true) ? 10 : 2;
             $(".background").addClass("js-correct");
             var emoji = "✅ ";// utils.pickFromArr(["👌","💯", "👍", "🙌", "🙆", "👏", "✅", "🤘", "🎉", "💃", "👯", "🎊", "😀", "😉", "😊", "😋", "😍", "😘", "🤗", "🤓", "😛", "😜", "😝"])
             $(".window .result").html(emoji);
             $(".background .history").append(emoji);
         } else {
         // Incorrect
-            //deduct more points if the answer was false.
-            points = (answer == true) ? -5 : -20;
+            //deduct more points if the correctAnswer was false.
+            points = (correctAnswer == true) ? -5 : -10;
             $(".window .result").html("❌ ");
             $(".background .history").append("❌ ");
             $(".background").addClass("js-incorrect");
@@ -117,11 +118,14 @@ questionList, codeUtils) {
 
         //update level score
         questionObject.updateScore(points);
-        ;console.log("question Score ---: " + questionObject.getScore())
+
+        ;console.log("QuestionPoints: " + questionObject.getScore())
 
 
-        // parse through each expression
+        // loop through each expression
         for(var i=0;i<question.guessList.length;i++){
+            console.group("Expression");
+
             var thisExpression = question.guessList[i];
             var thisExpressionObject = question.components[i];
 
@@ -132,9 +136,7 @@ questionList, codeUtils) {
             scoreObj[i] = {expression: thisExpressionObject.getScore()};
             scoreObj[i].components = [];
 
-            ;console.log("expression" + i + ": " + thisExpressionObject.getScore())
-
-            if(thisExpression.answer===false){// if the answer was false for this expression
+            if(thisExpression.answer===false){// if the correct answer was false for this expression
 
                 //only update score of trick part
                 var errLoc = thisExpression.errLocation;
@@ -146,29 +148,34 @@ questionList, codeUtils) {
 
                     var thisScore = thisExpression.components[j].getScore();
                     scoreObj[i].components[j] = thisScore;
-                    ;console.log("expression" + i + ".component"+j+": " + thisExpression.components[j].getScore())
+
+                    //;console.log("|f/ e"+i+".c"+j+": " + )
+                    ;console.log("|f/"+thisExpression.components[j].get().name, "+"+points+"=",thisExpression.components[j].getScore());
 
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
                     }
                 }
-            } else {//if the answer was true, update score of all parts
+            } else {//if the correctAnswer was true, update score of all parts
 
                 for(var j=0;j<thisExpression.components.length;j++){
+                    //debugger;
                     //update all component scores
-                    thisExpression.components[j].updateScore(points);
+                    thisExpression.components[j].updateScore(points);//this is a bug. components that appear multiple times are boosted or subtracted multiple times.
                     thisExpression.components[j].addToHistory(score);
 
                     //get score of components
                     var thisScore = thisExpression.components[j].getScore();
                     scoreObj[i].components[j] = thisScore;
-                    ;console.log("expression" + i + ".component"+j+": " + thisExpression.components[j].getScore())
+                    //;console.log("|t/ e" + i + ".c"+j+": " + )
+                    ;console.log("|t/",thisExpression.components[j].get().name, "+"+points+"=", thisExpression.components[j].getScore());
 
                     if(thisScore < lowestScore){
                         lowestScore = thisScore;
                     }
                 }
             }
+            console.groupEnd();
         }
 
         ;console.log("Scores: ", scoreObj);
