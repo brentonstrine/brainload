@@ -24,8 +24,33 @@ questionList, codeUtils) {
     var skipToLevel = function(level){
         level = parseInt(level);
         for(var i=0;i<level;i++){
+            var expressionList;
+            var componentList = [];
+
+            //level up
             levelUp();
-            //
+
+            // set level of this question
+            activeQuestionsList[i].setScore(150);
+
+            //get the expressions in this question
+            expressionList = questionList[i].getParts();
+
+            //loop through expressions
+            for(var j=0;j<expressionList.length;j++){
+
+                //set expression score
+                expressionList[j].setScore(120);
+
+                //get the components in this question
+                Array.prototype.push.apply(componentList, expressionList[j].getParts());
+            }
+
+            //loop through components
+            for(var k=0;k<componentList.length;k++){
+                //set the components in this question
+                componentList[k].setScore(120);
+            }
         }
     };
 
@@ -148,6 +173,7 @@ questionList, codeUtils) {
         ;console.log("Level Score: ", questionList[level].getScore())
         ;console.log("Lowest Score: ", lowestScore);
 
+        // Check if score means we should level up
         if(won || level > (questionList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
         } else if(questionList[level].getScore() > 150 && lowestScore > 117) {

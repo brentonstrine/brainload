@@ -10,7 +10,12 @@ function(questionPrototype, components, expressions, codeUtils) {
                 ];
                 var question = codeUtils.makeTest(answerType, expressionsList, name);
                 return question;
-            }}
+            }},
+            getParts: {value: function(type){
+                return [
+                    expressions.varDeclaration,
+                ];
+            }},
         }),
         //1, var x; x=num;
         Object.create(questionPrototype.questionPrototype(), {
@@ -25,7 +30,13 @@ function(questionPrototype, components, expressions, codeUtils) {
                 components.identifier.clearSpecialPart();
 
                 return question;
-            }}
+            }},
+            getParts: {value: function(type){
+                return [
+                 expressions.varDeclaration,
+                 expressions.assignmentVal
+                ];
+            }},
         }),
         //2
         Object.create(questionPrototype.questionPrototype(), {
@@ -41,7 +52,13 @@ function(questionPrototype, components, expressions, codeUtils) {
                 components.identifier.clearSpecialPart();
 
                 return question;
-            }}
+            }},
+            getParts: {value: function(type){
+                return [
+                    expressions.varDeclaration,
+                    expressions.assignmentVal,
+                ];
+            }},
         }),
         //3
         Object.create(questionPrototype.questionPrototype(), {
@@ -56,7 +73,13 @@ function(questionPrototype, components, expressions, codeUtils) {
                 components.identifier.clearSpecialPart();
 
                 return question;
-            }}
+            }},
+            getParts: {value: function(type){
+                return [
+                 expressions.varDeclaration,
+                 expressions.assignmentOp
+                ];
+            }},
         }),
         // Object.create(questionPrototype.questionPrototype(), {
         //     get: {value: function(answerType){

@@ -13,6 +13,9 @@ define([], function() {
             //
             //   }
           };
+          this.setScore = function(newScore){
+              score = newScore;
+          };
           this.getScore = function(){
               return score;
           };
@@ -22,7 +25,7 @@ define([], function() {
           this.setSpecialPart = function(part){
               specialPart = this.get(true).string;
           };
-          this.passPart = function(part, type){
+          this.passSpecialPart = function(part, type){
               specialPart = part;
               // type
           };
@@ -38,10 +41,11 @@ define([], function() {
           };
           return {
               updateScore: this.updateScore,
+              setScore: this.setScore,
               getScore: this.getScore,
               addToHistory: this.addToHistory,
               setSpecialPart: this.setSpecialPart,
-              passPart: this.passPart,
+              passSpecialPart: this.passSpecialPart,
               getSpecialPart: this.getSpecialPart,
               clearSpecialPart: this.clearSpecialPart,
           };
