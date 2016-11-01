@@ -1,6 +1,6 @@
 define([], function() {
   return {
-      testCodePrototype: function(){
+      questionPrototype: function(){
           var score = 100;
           //var levelPoints = 0;
           var history = [];

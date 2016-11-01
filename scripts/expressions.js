@@ -1,7 +1,7 @@
-define(["testCode", "components", "codeUtils"],
-function(testCode, components, codeUtils) {
+define(["questionPrototype", "components", "codeUtils"],
+function(questionPrototype, components, codeUtils) {
         // Expressions and operators.
-        var varDeclaration = Object.create(testCode.testCodePrototype(), {
+        var varDeclaration = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var expressions = [this];
                 var componentsList = [
@@ -15,7 +15,7 @@ function(testCode, components, codeUtils) {
                 return expression;
             }}
         });
-        var assignmentVal = Object.create(testCode.testCodePrototype(), {
+        var assignmentVal = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
                     components.identifier,
@@ -30,7 +30,7 @@ function(testCode, components, codeUtils) {
                 return expression;
             }}
         });
-        var assignmentNum = Object.create(testCode.testCodePrototype(), {
+        var assignmentNum = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
                     components.identifier,
@@ -45,7 +45,7 @@ function(testCode, components, codeUtils) {
                 return expression;
             }}
         });
-        var assignmentStr = Object.create(testCode.testCodePrototype(), {
+        var assignmentStr = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
                     components.identifier,
@@ -60,7 +60,7 @@ function(testCode, components, codeUtils) {
                 return expression;
             }}
         });
-        var assignmentObj = Object.create(testCode.testCodePrototype(), {
+        var assignmentObj = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
                     components.identifier,
@@ -75,7 +75,7 @@ function(testCode, components, codeUtils) {
                 return expression;
             }}
         });
-        var assignmentOp = Object.create(testCode.testCodePrototype(), {
+        var assignmentOp = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
                     components.identifier,

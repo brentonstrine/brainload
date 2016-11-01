@@ -1,4 +1,4 @@
-define(["testCode", "components", "expressions"], function(testCode, components, expressions) {
+define(["questionPrototype", "components", "expressions"], function(questionPrototype, components, expressions) {
 
     var getProbabilities = function(partList){
         var l = partList.length;

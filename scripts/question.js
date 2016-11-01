@@ -1,7 +1,7 @@
 define(
-["utils", "testCode", "components", "expressions",
+["utils", "questionPrototype", "components", "expressions",
 "questionList", "codeUtils"],
-function(utils, testCode, components, expressions,
+function(utils, questionPrototype, components, expressions,
 questionList, codeUtils) {
 
     var currentQuestion = true;

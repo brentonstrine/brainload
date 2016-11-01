@@ -1,8 +1,8 @@
-define(["testCode", "components", "expressions", "codeUtils"],
-function(testCode, components, expressions, codeUtils) {
+define(["questionPrototype", "components", "expressions", "codeUtils"],
+function(questionPrototype, components, expressions, codeUtils) {
     return [
         //0, var x;
-        Object.create(testCode.testCodePrototype(), {
+        Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
                 var name = "Block Var Declaration";
                 var expressionsList = [
@@ -13,7 +13,7 @@ function(testCode, components, expressions, codeUtils) {
             }}
         }),
         //1, var x; x=num;
-        Object.create(testCode.testCodePrototype(), {
+        Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
                 var name = "Block Var Declaration and Assignment";
                 var expressionsList = [
@@ -28,7 +28,7 @@ function(testCode, components, expressions, codeUtils) {
             }}
         }),
         //2
-        Object.create(testCode.testCodePrototype(), {
+        Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
                 var name = "Block Var Declaration and Two String Assignments";
                 var expressionsList = [
@@ -44,7 +44,7 @@ function(testCode, components, expressions, codeUtils) {
             }}
         }),
         //3
-        Object.create(testCode.testCodePrototype(), {
+        Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
                 var name = "Block. Assign to operation.";
                 var expressionsList = [
@@ -58,7 +58,7 @@ function(testCode, components, expressions, codeUtils) {
                 return question;
             }}
         }),
-        // Object.create(testCode.testCodePrototype(), {
+        // Object.create(questionPrototype.questionPrototype(), {
         //     get: {value: function(answerType){
         //         var name = "Block Var Declaration and Two String Assignments";
         //         var expressionsList = [

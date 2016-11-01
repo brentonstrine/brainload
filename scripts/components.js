@@ -1,5 +1,5 @@
-define(["utils", "testCode"], function(utils, testCode) {
-    var variable = Object.create(testCode.testCodePrototype(), {
+define(["utils", "questionPrototype"], function(utils, questionPrototype) {
+    var variable = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Variable";
             var fragment  = '<span class="component component-variable ';
@@ -20,7 +20,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }},
     });
-    var space = Object.create(testCode.testCodePrototype(), {
+    var space = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Space";
             var fragment  = '<span class="component component-space ';
@@ -41,7 +41,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
-    var identifier = Object.create(testCode.testCodePrototype(), {
+    var identifier = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Identifier";
             var fragment = "";
@@ -69,7 +69,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
-    var assignment  = Object.create(testCode.testCodePrototype(), {
+    var assignment  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Assignment";
             var fragment  = '<span class="component B component-assignment ';
@@ -93,7 +93,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
-    var object  = Object.create(testCode.testCodePrototype(), {
+    var object  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Object";
             var fragment  = '<span class="component component-object ';
@@ -114,7 +114,7 @@ define(["utils", "testCode"], function(utils, testCode) {
             };
         }}
     });
-    var number  = Object.create(testCode.testCodePrototype(), {
+    var number  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Number";
             var fragment  = '<span class="component component-number ';
@@ -136,7 +136,7 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
 
-    var string = Object.create(testCode.testCodePrototype(), {
+    var string = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component String";
             var fragment  = '<span class="component component-string ';
@@ -159,7 +159,7 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
 
-    var semicolon  = Object.create(testCode.testCodePrototype(), {
+    var semicolon  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Semicolon";
             var fragment  = '<span class="component component-semicolon ';
@@ -181,7 +181,7 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
 
-    var value = Object.create(testCode.testCodePrototype(), {
+    var value = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Value";
             var fragment  = '<span class="component component-value ';
@@ -214,7 +214,7 @@ define(["utils", "testCode"], function(utils, testCode) {
         }}
     });
 
-    var operator = Object.create(testCode.testCodePrototype(), {
+    var operator = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Operator";
             var fragment  = '<span class="component component-value ';
