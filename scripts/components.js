@@ -80,7 +80,6 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             } else {
                 fragment += 'component-error Bb"><span class="component-code">';
                 var a = utils.pickFromArr(["==", "===", "<span class='component-missing'>&nbsp;</span>", utils.pickFrom(0,999), "-", "!"]);
-                console.log(a);
                 fragment += a;
                 fragment += '</span>';
                 if(a=="="){debugger;}
@@ -193,10 +192,9 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type)]);
             } else if (score < 160) {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type), simpleObject(type)]);
-            } else if (score < 190) {
+            } else {
                 value = utils.pickFromArr([simpleNumber(type), simpleString(type), simpleObject(type), simpleIdentifier(type)]);
             }
-
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
                 fragment += value;
@@ -217,7 +215,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     var operator = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Operator";
-            var fragment  = '<span class="component component-value ';
+            var fragment  = '<span class="component component-operator';
             var value;
             score = this.getScore();
             if(score < 120){
@@ -226,7 +224,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
                 value = utils.pickFromArr([plus(type), minus(type)]);
             } else if (score < 160) {
                 value = utils.pickFromArr([plus(type), minus(type), times(type)]);
-            } else if (score < 190) {
+            } else {
                 value = utils.pickFromArr([plus(type), minus(type), times(type), divide(type)]);
             }
 
@@ -238,7 +236,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
                 fragment += value;
             }
             fragment += '</span>';
-            fragment += "<span class='component-explanation'>value</span></span>\n";
+            fragment += "<span class='component-explanation'>operator</span></span>\n";
             return {
                 name: name,
                 string: fragment,
