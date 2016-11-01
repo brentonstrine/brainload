@@ -86,12 +86,23 @@ function(questionPrototype, components, expressions, codeUtils) {
         Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
                 var name = "Block-Assign to object.";
+                var keyValScore = expressions.objKeyValue.getScore();
                 var expressionsList = [
                      expressions.varDeclaration,
                      expressions.assignmentObjStart,
                      expressions.objKeyValue,
-                     expressions.objEnd,
                 ];
+                //add additional lines in the object as score of this expression goes up
+                if(keyValScore > 120){
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 140) {
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 160) {
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 200){
+                    expressionsList.push(expressions.objKeyValue);
+                }
+                expressionsList.push(expressions.objEnd);
                 components.identifier.setSpecialPart();
                 var question = codeUtils.makeTest(answerType, expressionsList, name);
                 components.identifier.clearSpecialPart();
@@ -99,12 +110,24 @@ function(questionPrototype, components, expressions, codeUtils) {
                 return question;
             }},
             getParts: {value: function(type){
-                return [
+                var expressionsList = [
                      expressions.varDeclaration,
                      expressions.assignmentObjStart,
                      expressions.objKeyValue,
-                     expressions.objEnd,
                 ];
+                //add additional lines in the object as score of this expression goes up
+                if(keyValScore > 120){
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 140) {
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 160) {
+                    expressionsList.push(expressions.objKeyValue);
+                } else if (keyValScore > 200){
+                    expressionsList.push(expressions.objKeyValue);
+                }
+                expressionsList.push(expressions.objEnd);
+
+                return expressionsList;
             }},
         }),
     ];
