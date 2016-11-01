@@ -57,6 +57,7 @@ questionList, codeUtils) {
     var getQuestion = function(){
         return currentQuestion;
     };
+
     var setQuestion = function(q){
         currentQuestion = q;
     };
@@ -80,6 +81,7 @@ questionList, codeUtils) {
         ;console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
         ;console.groupEnd();
     };
+
 
     var checkGuess = function(guess) {
         ;console.group("checkGuess");
@@ -173,6 +175,7 @@ questionList, codeUtils) {
         ;console.log("Level Score: ", questionList[level].getScore())
         ;console.log("Lowest Score: ", lowestScore);
 
+
         // Check if score means we should level up
         if(won || level > (questionList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
@@ -205,6 +208,7 @@ questionList, codeUtils) {
         }, delay);
         ;console.groupEnd();
     };
+
     return {
         levelUp,
         skipToLevel,
