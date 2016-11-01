@@ -84,6 +84,32 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             };
         }}
     });
+
+    var identifierUnique = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Identifier";
+            var fragment = "";
+            var value = simpleIdentifierAlt(type);
+
+            fragment += '<span class="component component-identifier ';
+
+            if(type==true){
+                fragment += 'component-ok">';
+            } else {
+                fragment += 'component-error">';
+            }
+            fragment += '<span class="component-code">';
+            fragment += value;
+            fragment += '</span>';
+            fragment += "<span class='component-explanation'>identifier</span>";
+            fragment += "</span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
     var assignment  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Assignment";
@@ -347,6 +373,10 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             };
         }}
     });
+
+    //SIMPLE HELPER FUNCTIONS
+
+    //values
     var badValue  = function(){
             return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", "&", "+", ", ", "; ", "var","{", "}", "}{", "{]", "[}", "<>"]);
     };
@@ -376,19 +406,34 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             return badValue();
         }
     };
+
+    //identifiers and keys
+    var badIdentifier  = function(){
+            return utils.pickFromArr(['"' + simpleIdentifier(true) + '""', simpleNumber(true), badValue(), simpleObject(), goodOperator()]);
+    };
     var simpleIdentifier  = function(type){
         if(type==true){
             return utils.pickFromArr(["x", "y", "z", "myVarName", "monkey", "A", "B", "C", "Identifier", "identifier", "name"]);
         } else {
-            return badValue();
+            return badIdentifier();
+        }
+    };
+    var simpleIdentifierAlt  = function(type){
+        if(type==true){
+            return utils.pickFromArr(["q", "r", "s", "chimp", "kimp", "K", "key", "k", "myName"]);
+        } else {
+            return badIdentifier();
         }
     };
 
 
+    //operators
+    var goodOperator  = function(){
+            return utils.pickFromArr([plus(true), minus(true), times(true), divide(true)]);
+    };
     var badOperator  = function(){
             return utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", ";", "var", "<>", goodValue()]);
     };
-    //operators
     var plus  = function(type){
         if(type==true){
             return "+";
@@ -421,6 +466,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     return {
         variable,
         identifier,
+        identifierUnique,
         assignment,
         number,
         openCurly,

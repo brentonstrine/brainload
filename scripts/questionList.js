@@ -100,30 +100,12 @@ function(questionPrototype, components, expressions, codeUtils) {
             }},
             getParts: {value: function(type){
                 return [
-                 expressions.varDeclaration,
-                 expressions.assignmentOp
+                     expressions.varDeclaration,
+                     expressions.assignmentObjStart,
+                     expressions.objKeyValue,
+                     expressions.objEnd,
                 ];
             }},
         }),
-        // Object.create(questionPrototype.questionPrototype(), {
-        //     get: {value: function(answerType){
-        //         var name = "Block Var Declaration and Two String Assignments";
-        //         var expressionsList = [
-        //              expressions.varDeclaration,
-        //              expressions.assignmentOpenObj,
-        //              expressions.objAssignmentVal,
-        //              expressions.closeObj,
-        //         ];
-        //         //var a;
-        //         //a = {
-        //         //  f: val
-        //         //};
-        //         components.identifier.setSpecialPart();
-        //         var question = codeUtils.makeTest(answerType, expressionsList, name);
-        //         components.identifier.clearSpecialPart();
-        //
-        //         return question;
-        //     }}
-        // }),
     ];
 });

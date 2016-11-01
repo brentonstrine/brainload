@@ -170,7 +170,7 @@ function(questionPrototype, components, codeUtils) {
             get: {value: function(type){
                 var componentsList = [
                     components.indent,
-                    components.identifier,
+                    components.identifierUnique,
                     components.colon,
                     components.space,
                     components.value,

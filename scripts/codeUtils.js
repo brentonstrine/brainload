@@ -81,8 +81,8 @@ define(["questionPrototype", "components", "expressions"], function(questionProt
                 guessList: guessList
             };
         } else {
-            for(var i=0;i<partList.length;i++){
-                var result = partList[i].get(true);
+            for(var j=0;j<partList.length;j++){
+                var result = partList[j].get(true);
                 guessList.push(result);
                 testString += result.string;
             }
