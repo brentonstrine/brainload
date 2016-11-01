@@ -1,22 +1,22 @@
 define(
 ["utils", "testCode", "components", "expressions",
-"tests", "codeUtils"],
+"questionList", "codeUtils"],
 function(utils, testCode, components, expressions,
-tests, codeUtils) {
+questionList, codeUtils) {
 
     var currentQuestion = true;
     var level = 0;
     var runCount = 0;
-    var testList = [tests[0]];
+    var activeQuestionsList = [questionList[0]];
     var parent = this;
     var won = false;
 
     var levelUp = function(){
-        if( (level + 1) == tests.length ){
+        if( (level + 1) == questionList.length ){
             won = true;
         } else {
             level++;
-            testList.push(tests[level]);
+            activeQuestionsList.push(questionList[level]);
             ;console.log("++++++++++++ LEVEL UP +++++++++++++");
         }
     };
@@ -40,16 +40,16 @@ tests, codeUtils) {
         ;console.group("buildTest()");
         ;console.log("--- building new question (" +level+ ") ------------------------------------------");
 
-        //decide if test will be true or false
+        //decide if question will be true or false
         var testType = Math.round(Math.random());
 
         //pick which code we're going to test
-        var testId = codeUtils.chooseCode(testList);
-        var qObject = testList[testId];
+        var testId = codeUtils.chooseCode(activeQuestionsList);
+        var qObject = activeQuestionsList[testId];
         var qResult = qObject.get(testType);
         setQuestion({object: qObject, guess: qResult});
 
-        // insert test code into window
+        // insert question code into window
         $(".window .code").html(qResult.string);
 
         ;console.log("--- waiting on your answer (" +level+ ") -------------------------------------");
@@ -90,7 +90,7 @@ tests, codeUtils) {
 
         //update level score
         questionObject.updateScore(points);
-        ;console.log("Test Score ---: " + questionObject.getScore())
+        ;console.log("question Score ---: " + questionObject.getScore())
 
 
         // parse through each expression
@@ -145,12 +145,12 @@ tests, codeUtils) {
         }
 
         ;console.log("Scores: ", scoreObj);
-        ;console.log("Level Score: ", tests[level].getScore())
+        ;console.log("Level Score: ", questionList[level].getScore())
         ;console.log("Lowest Score: ", lowestScore);
 
-        if(won || level > (tests.length - 1) ){
+        if(won || level > (questionList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
-        } else if(tests[level].getScore() > 150 && lowestScore > 117) {
+        } else if(questionList[level].getScore() > 150 && lowestScore > 117) {
             $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div>");
             $(".window .result").html("Level 🎓 Up!!!");
             $(".background .history").append("<span class='graduate'>🎓</span><br>");

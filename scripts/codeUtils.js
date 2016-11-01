@@ -55,7 +55,7 @@ define(["testCode", "components", "expressions"], function(testCode, components,
     var makeTest = function(answerType, partList, name){
         var testString = "";
         var guessList = [];
-        //answer to this test is FALSE
+        //answer to this question is FALSE
         if(!answerType){
             //console.log("the answer will be FALSE");
             var errLocation = chooseCode(partList);

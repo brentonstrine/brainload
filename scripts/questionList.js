@@ -8,8 +8,8 @@ function(testCode, components, expressions, codeUtils) {
                 var expressionsList = [
                      expressions.varDeclaration,
                 ];
-                var test = codeUtils.makeTest(answerType, expressionsList, name);
-                return test;
+                var question = codeUtils.makeTest(answerType, expressionsList, name);
+                return question;
             }}
         }),
         //1, var x; x=num;
@@ -21,10 +21,10 @@ function(testCode, components, expressions, codeUtils) {
                      expressions.assignmentVal
                 ];
                 components.identifier.setSpecialPart();
-                var test = codeUtils.makeTest(answerType, expressionsList, name);
+                var question = codeUtils.makeTest(answerType, expressionsList, name);
                 components.identifier.clearSpecialPart();
 
-                return test;
+                return question;
             }}
         }),
         //2
@@ -37,10 +37,10 @@ function(testCode, components, expressions, codeUtils) {
                      expressions.assignmentVal,
                 ];
                 components.identifier.setSpecialPart();
-                var test = codeUtils.makeTest(answerType, expressionsList, name);
+                var question = codeUtils.makeTest(answerType, expressionsList, name);
                 components.identifier.clearSpecialPart();
 
-                return test;
+                return question;
             }}
         }),
         //3
@@ -52,10 +52,10 @@ function(testCode, components, expressions, codeUtils) {
                      expressions.assignmentOp,
                 ];
                 components.identifier.setSpecialPart();
-                var test = codeUtils.makeTest(answerType, expressionsList, name);
+                var question = codeUtils.makeTest(answerType, expressionsList, name);
                 components.identifier.clearSpecialPart();
 
-                return test;
+                return question;
             }}
         }),
         // Object.create(testCode.testCodePrototype(), {
@@ -72,10 +72,10 @@ function(testCode, components, expressions, codeUtils) {
         //         //  f: val
         //         //};
         //         components.identifier.setSpecialPart();
-        //         var test = codeUtils.makeTest(answerType, expressionsList, name);
+        //         var question = codeUtils.makeTest(answerType, expressionsList, name);
         //         components.identifier.clearSpecialPart();
         //
-        //         return test;
+        //         return question;
         //     }}
         // }),
     ];

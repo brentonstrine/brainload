@@ -10,9 +10,9 @@ function(testCode, components, codeUtils) {
                     components.identifier,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression varDeclaration");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression varDeclaration");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
         var assignmentVal = Object.create(testCode.testCodePrototype(), {
@@ -25,9 +25,9 @@ function(testCode, components, codeUtils) {
                     components.value,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentVal");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentVal");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
         var assignmentNum = Object.create(testCode.testCodePrototype(), {
@@ -40,9 +40,9 @@ function(testCode, components, codeUtils) {
                     components.number,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentNum");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentNum");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
         var assignmentStr = Object.create(testCode.testCodePrototype(), {
@@ -55,9 +55,9 @@ function(testCode, components, codeUtils) {
                     components.string,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentStr");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentStr");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
         var assignmentObj = Object.create(testCode.testCodePrototype(), {
@@ -70,9 +70,9 @@ function(testCode, components, codeUtils) {
                     components.object,
                     components.semicolon,
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
         var assignmentOp = Object.create(testCode.testCodePrototype(), {
@@ -89,22 +89,10 @@ function(testCode, components, codeUtils) {
                     components.number,
                     components.semicolon
                 ];
-                var test = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
-                test.string = "<div>" + test.string + "</div>";
-                return test;
+                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
             }}
         });
     return {varDeclaration, assignmentNum, assignmentStr, assignmentObj, assignmentVal, assignmentOp};
 });
-
-// component
-// expression
-// line
-// codeTest
-//
-// e: c,c,c
-// l: e,e,e
-// c: l,l,l
-// [ assignment ] c:a, c:s, c:=, c:s, e:o, c:s, c:;
-//      [opera] c:x, c:s, c:+, c:s, c:y
-// [a = [x + y];]

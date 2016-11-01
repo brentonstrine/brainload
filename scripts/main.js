@@ -1,15 +1,15 @@
 $(function(){
     requirejs(
-    ["utils", "components", "expressions", "test",
-    "tests"],
-    function(utils, components, expressions, test,
-    tests) {
+    ["utils", "components", "expressions", "question",
+    "questionList"],
+    function(utils, components, expressions, question,
+    questionList) {
         $(document).on("keyup", function(e){
-            if(test.getQuestion()){
+            if(question.getQuestion()){
                 if(e.which == 39){ //right arrow
-                    test.checkGuess(true);
+                    question.checkGuess(true);
                 } else if(e.which == 37){ //left arrow
-                    test.checkGuess(false);
+                    question.checkGuess(false);
                 }
             } else {
                 console.log ("whoa there! Slow down!")
@@ -17,8 +17,8 @@ $(function(){
         });
         var urlLevel = utils.getUrlParameter("hash");
         if(urlLevel){
-            test.skipToLevel(urlLevel[3]);
+            question.skipToLevel(urlLevel[3]);
         }
-        test.buildTest();
+        question.buildTest();
     });
 });
