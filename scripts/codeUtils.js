@@ -6,7 +6,7 @@ define(["questionPrototype", "components", "expressions"], function(questionProt
         var inverseTotal = 0;
         var probabilityList = [];
         for(var i=0;i<l;i++){
-            if(typeof partList[i] == "undefined") {console.log("PROBLEM")}
+            if(typeof partList[i] == "undefined") {debugger;console.log("PROBLEM")}
             var inverseScore = 1 / (partList[i].getScore());
             inverseScore = inverseScore ** 2; //higher numbers increase the income gap
             inverseList.push(inverseScore);

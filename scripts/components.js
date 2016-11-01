@@ -41,6 +41,21 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             };
         }}
     });
+    var indent = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Space";
+            var fragment  = '<span class="component component-indent ';
+            fragment += 'component-ok   "><span class="component-code">';
+            fragment += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            fragment += '</span>';
+            fragment += "<span class='component-explanation'>indentation</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
     var identifier = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Identifier";
@@ -113,6 +128,52 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             };
         }}
     });
+
+    var openCurly  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Open Curly Brace";
+            var fragment  = '<span class="component component-openCurly ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "{";
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["}", "}{", "<span class='component-missing'>&nbsp;</span>", "{]", "[}", "<>", "{;", ":", "[", "="]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>open curly bracket</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
+
+
+    var closeCurly  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Close Curly Brace";
+            var fragment  = '<span class="component component-closeCurly ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "}";
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["{", "}{", "<span class='component-missing'>&nbsp;</span>", "{]", "[}", "<>", "{;", ":", "[", "="]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>close curly brace</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
+
     var number  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Number";
@@ -179,7 +240,49 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             };
         }}
     });
+    var colon  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Colon";
+            var fragment  = '<span class="component component-colon ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += ':';
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", "=", ";", ",", "-"]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>colon</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
 
+    var comma  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component Comma";
+            var fragment  = '<span class="component component-comma ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += ',';
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span class='component-missing'>&nbsp;</span>", ".", ";", ":"]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>comma</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
     var value = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component Value";
@@ -320,8 +423,13 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
         identifier,
         assignment,
         number,
+        openCurly,
+        closeCurly,
         semicolon,
+        colon,
+        comma,
         space,
+        indent,
         string,
         value,
         operator,
