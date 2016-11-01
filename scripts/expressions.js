@@ -10,7 +10,7 @@ function(questionPrototype, components, codeUtils) {
                     components.identifier,
                     components.semicolon
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression varDeclaration");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-varDeclaration");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -33,7 +33,7 @@ function(questionPrototype, components, codeUtils) {
                     components.value,
                     components.semicolon
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentVal");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentVal");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -58,7 +58,7 @@ function(questionPrototype, components, codeUtils) {
                     components.number,
                     components.semicolon
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentNum");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentNum");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -83,7 +83,7 @@ function(questionPrototype, components, codeUtils) {
                     components.string,
                     components.semicolon
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentStr");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentStr");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -108,7 +108,7 @@ function(questionPrototype, components, codeUtils) {
                     components.object,
                     components.semicolon,
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentObj");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -133,7 +133,7 @@ function(questionPrototype, components, codeUtils) {
                     components.space,
                     components.openCurly,
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObjStart");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentObjStart");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -154,7 +154,7 @@ function(questionPrototype, components, codeUtils) {
                     components.closeCurly,
                     components.semicolon,
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObjEnd");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentObjEnd");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -176,7 +176,7 @@ function(questionPrototype, components, codeUtils) {
                     components.value,
                     components.comma,
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression objKeyValue");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-objKeyValue");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
@@ -191,6 +191,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
+
         var assignmentOp = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -205,7 +206,7 @@ function(questionPrototype, components, codeUtils) {
                     components.number,
                     components.semicolon
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression assignmentObj");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentObj");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},

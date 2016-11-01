@@ -1,7 +1,7 @@
 define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     var variable = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Variable";
+            var name = "Component-Variable";
             var fragment  = '<span class="component component-variable ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -22,7 +22,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var space = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Space";
+            var name = "Component-Space";
             var fragment  = '<span class="component component-space ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -43,7 +43,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var indent = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Space";
+            var name = "Component-Space";
             var fragment  = '<span class="component component-indent ';
             fragment += 'component-ok   "><span class="component-code">';
             fragment += "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -58,7 +58,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var identifier = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Identifier";
+            var name = "Component-Identifier";
             var fragment = "";
             var part = this.getSpecialPart();
 
@@ -87,7 +87,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var identifierUnique = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Identifier";
+            var name = "Component-Identifier";
             var fragment = "";
             var value = simpleIdentifierAlt(type);
 
@@ -112,7 +112,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var assignment  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Assignment";
+            var name = "Component-Assignment";
             var fragment  = '<span class="component B component-assignment ';
             if(type==true){
                 fragment += 'component-ok   Ba"><span class="component-code">';
@@ -135,7 +135,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var object  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Object";
+            var name = "Component-Object";
             var fragment  = '<span class="component component-object ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -157,7 +157,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var openCurly  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Open Curly Brace";
+            var name = "Component-Open Curly Brace";
             var fragment  = '<span class="component component-openCurly ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -180,7 +180,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var closeCurly  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Close Curly Brace";
+            var name = "Component-Close Curly Brace";
             var fragment  = '<span class="component component-closeCurly ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -202,7 +202,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var number  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Number";
+            var name = "Component-Number";
             var fragment  = '<span class="component component-number ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -224,7 +224,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var string = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component String";
+            var name = "Component-String";
             var fragment  = '<span class="component component-string ';
 
             if(type==true){
@@ -247,7 +247,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var semicolon  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Semicolon";
+            var name = "Component-Semicolon";
             var fragment  = '<span class="component component-semicolon ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -268,7 +268,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var colon  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Colon";
+            var name = "Component-Colon";
             var fragment  = '<span class="component component-colon ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -290,7 +290,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var comma  = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Comma";
+            var name = "Component-Comma";
             var fragment  = '<span class="component component-comma ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
@@ -311,7 +311,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var value = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Value";
+            var name = "Component-Value";
             var fragment  = '<span class="component component-value ';
             var value;
             score = this.getScore();
@@ -343,7 +343,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
 
     var operator = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            var name = "Component Operator";
+            var name = "Component-Operator";
             var fragment  = '<span class="component component-operator';
             var value;
             score = this.getScore();
