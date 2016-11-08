@@ -1,5 +1,13 @@
 define([], function() {
   return {
+      coinFlip: function () {
+          return Boolean(Math.floor(Math.random() * 2));
+      },
+      loop: function (x, f) {
+          for(var i=0;i<x;i++){
+            f();
+          }
+      },
       pickFrom: function (min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);

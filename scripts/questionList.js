@@ -1,5 +1,5 @@
-define(["questionPrototype", "components", "expressions", "codeUtils"],
-function(questionPrototype, components, expressions, codeUtils) {
+define(["questionPrototype", "components", "expressions", "codeUtils", "utils"],
+function(questionPrototype,   components,   expressions,   codeUtils,   utils) {
     return [
         //0, var x;
         Object.create(questionPrototype.questionPrototype(), {
@@ -19,25 +19,42 @@ function(questionPrototype, components, expressions, codeUtils) {
         }),
         //1, var x; x=num;
         Object.create(questionPrototype.questionPrototype(), {
-            get: {value: function(answerType){
-                var name = "Block-Var Declaration and Assignment";
+            getParts: {value: function(type){
+                var assignmentScore = expressions.assignmentVal.getScore();
                 var expressionsList = [
                      expressions.varDeclaration,
                      expressions.assignmentVal
                 ];
+                var maxRepeats = 0;
+                //add additional lines in the object as score of this expression goes up
+                if(assignmentScore > 120){
+                    maxRepeats = 1;
+                } else if (assignmentScore > 140) {
+                    maxRepeats = 2;
+                } else if (assignmentScore > 150) {
+                    maxRepeats = 4;
+                } else if (assignmentScore > 180){
+                    maxRepeats = 6;
+                }
+                var repeats = utils.pickFrom(0,maxRepeats);
+                utils.loop(repeats, function(){
+                    expressionsList.push(expressions.assignmentVal);
+                });
+                return expressionsList;
+            }},
+            get: {value: function(answerType){
+                var name = "Block-Var Declaration and Assignment";
+                var expressionsList = this.getParts();
+
                 components.identifier.setSpecialPart();
                 var question = codeUtils.makeTest(answerType, expressionsList, name);
                 components.identifier.clearSpecialPart();
 
                 return question;
             }},
-            getParts: {value: function(type){
-                return [
-                 expressions.varDeclaration,
-                 expressions.assignmentVal
-                ];
-            }},
         }),
+
+
         //2
         Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(answerType){
@@ -95,11 +112,14 @@ function(questionPrototype, components, expressions, codeUtils) {
                 //add additional lines in the object as score of this expression goes up
                 if(keyValScore > 120){
                     expressionsList.push(expressions.objKeyValue);
-                } else if (keyValScore > 140) {
+                }
+                if (keyValScore > 140) {
                     expressionsList.push(expressions.objKeyValue);
-                } else if (keyValScore > 160) {
+                }
+                if (keyValScore > 160) {
                     expressionsList.push(expressions.objKeyValue);
-                } else if (keyValScore > 200){
+                }
+                if (keyValScore > 200){
                     expressionsList.push(expressions.objKeyValue);
                 }
                 expressionsList.push(expressions.objEnd);
@@ -132,3 +152,20 @@ function(questionPrototype, components, expressions, codeUtils) {
         }),
     ];
 });
+
+
+/*
+
+things to try to test for:
+
+bad:
+x + y = 5;
+x + 5 = 5;
+x = var y;
+
+good:
+
+var y = 2; var x = y;
+var y = y + 1;
+
+*/
