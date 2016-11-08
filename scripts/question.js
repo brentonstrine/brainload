@@ -201,7 +201,7 @@ questionList, codeUtils) {
                 "o9m52fa",
                 "96d6Jc6",
             ];
-            $(".background .level").html("Level "+level+". <input type='text' value='http://brainloader.shoutleaf.com/?hash=" + fakeLevels[level] + "'>");
+            $(".background .level").html("Level "+level+". <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup
