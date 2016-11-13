@@ -1,6 +1,7 @@
 define(["questionPrototype", "components", "codeUtils"],
 function(questionPrototype, components, codeUtils) {
         // Expressions and operators.
+// var x;
         var varDeclaration = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var expressions = [this];
@@ -23,6 +24,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
+// x = value;
         var assignmentVal = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -48,6 +50,41 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
+// x = value + value;
+        var assignmentOp = Object.create(questionPrototype.questionPrototype(), {
+            get: {value: function(type){
+                var componentsList = [ // x = 4 + 4;
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.value,
+                    components.space,
+                    components.operator,
+                    components.space,
+                    components.value,
+                    components.semicolon
+                ];
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentVal");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
+            }},
+            getParts: {value: function(type){
+                return [
+                    components.identifier,
+                    components.space,
+                    components.assignment,
+                    components.space,
+                    components.value,
+                    components.space,
+                    components.operation,
+                    components.space,
+                    components.value,
+                    components.semicolon
+                ];
+            }},
+        });
+// x = 5;
         var assignmentNum = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -73,6 +110,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
+// x = "str";
         var assignmentStr = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -98,6 +136,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
+// x = {};
         var assignmentObj = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -123,7 +162,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
-
+// x = {
         var assignmentObjStart = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -147,7 +186,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
-
+// };
         var objEnd = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -165,7 +204,7 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
-
+// >> z: value,
         var objKeyValue = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
@@ -191,40 +230,40 @@ function(questionPrototype, components, codeUtils) {
                 ];
             }},
         });
-
-        var assignmentOp = Object.create(questionPrototype.questionPrototype(), {
+// if(bool){
+    var conditionStart = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var componentsList = [
+                components.iff,
+            ];
+            var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
+            expression.string = "<div>" + expression.string + "</div>";
+            return expression;
+        }},
+        getParts: {value: function(type){
+            return [
+                components.iff,
+            ];
+        }},
+    });
+    // }
+        var conditionEnd = Object.create(questionPrototype.questionPrototype(), {
             get: {value: function(type){
                 var componentsList = [
-                    components.identifier,
-                    components.space,
-                    components.assignment,
-                    components.space,
-                    components.number,
-                    components.space,
-                    components.operator,
-                    components.space,
-                    components.number,
-                    components.semicolon
+                    components.closeCurly,
                 ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentObj");
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
                 expression.string = "<div>" + expression.string + "</div>";
                 return expression;
             }},
             getParts: {value: function(type){
                 return [
-                    components.identifier,
-                    components.space,
-                    components.assignment,
-                    components.space,
-                    components.number,
-                    components.space,
-                    components.operator,
-                    components.space,
-                    components.number,
-                    components.semicolon
+                    components.closeCurly
                 ];
             }},
         });
+
+
     return {
         varDeclaration,
         assignmentNum,
@@ -235,5 +274,7 @@ function(questionPrototype, components, codeUtils) {
         assignmentOp,
         objKeyValue,
         objEnd,
+        conditionStart,
+        conditionEnd,
     };
 });

@@ -374,6 +374,28 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
         }}
     });
 
+    var iff  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component-Begin If";
+            var fragment  = '<span class="component component-beginIf ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "if(true){";
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["if)true({", "if{true}{", "if<span class='component-missing'>&nbsp;</span>{", "if[true]{", "if: ", "if{", "if(true)",]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>beginning if statement</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
+
     //SIMPLE HELPER FUNCTIONS
 
     //values
@@ -479,5 +501,6 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
         string,
         value,
         operator,
+        iff,
     };
 });
