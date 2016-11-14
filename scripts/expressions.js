@@ -262,7 +262,7 @@ function(questionPrototype,   components,   codeUtils,   utils) {
             ];
         }},
     });
-// }
+// >> code
     var blockedCode = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var componentsList = getBlock();
@@ -272,6 +272,30 @@ function(questionPrototype,   components,   codeUtils,   utils) {
         }},
         getParts: {value: function(type){
             return getBlock();
+        }},
+    });
+// var x = function(){}
+    var functionStart = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var componentsList = [
+                components.identifier,
+                components.space,
+                components.assignment,
+                components.space,
+                components.functionStart,
+            ];
+            var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
+            expression.string = "<div>" + expression.string + "</div>";
+            return expression;
+        }},
+        getParts: {value: function(type){
+            return [
+                components.identifier,
+                components.space,
+                components.assignment,
+                components.space,
+                components.functionStart,
+            ];
         }},
     });
 
@@ -334,5 +358,6 @@ var getBlock  = function(){
         conditionStart,
         blockedCode,
         conditionEnd,
+        functionStart,
     };
 });

@@ -1,7 +1,9 @@
 define(["questionPrototype", "components", "expressions", "codeUtils", "utils"],
 function(questionPrototype,   components,   expressions,   codeUtils,   utils) {
 return [
-//0, var x;
+/* 0
+var x;
+*/
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
         var name = "Block-Var Declaration";
@@ -17,7 +19,10 @@ Object.create(questionPrototype.questionPrototype(), {
         ];
     }},
 }),
-// //1, var x; x=val;
+
+/* 1
+var x; x=val;
+*/
 Object.create(questionPrototype.questionPrototype(), {
     getParts: {value: function(type){
         var assignmentScore = expressions.assignmentVal.getScore();
@@ -54,7 +59,9 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-//1, var x; x=num+num;
+/* 2
+var x; x=num+num;
+*/
 Object.create(questionPrototype.questionPrototype(), {
     getParts: {value: function(type){
         var assignmentScore = expressions.assignmentVal.getScore();
@@ -91,8 +98,8 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-
-//2
+/* 3
+*/
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
         var name = "Block-Var Declaration and Two Assignments";
@@ -114,7 +121,9 @@ Object.create(questionPrototype.questionPrototype(), {
         ];
     }},
 }),
-//3
+
+/* 4
+*/
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
         var name = "Block-Assign to operation.";
@@ -136,7 +145,8 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-//4
+/* 5
+*/
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
         var name = "Block-Assign to object.";
@@ -188,8 +198,10 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-
-//4
+/* 6
+    if(true){
+        var x = 6;
+    }                      */
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
         var name = "Block-if";
@@ -210,6 +222,35 @@ Object.create(questionPrototype.questionPrototype(), {
              expressions.conditionStart,
              expressions.blockedCode,
              expressions.conditionEnd,
+        ];
+        return expressionsList;
+    }},
+}),
+
+/* 7
+    var x = function(){
+        var x = 6;
+    }                      */
+Object.create(questionPrototype.questionPrototype(), {
+    get: {value: function(answerType){
+        var name = "Block-if";
+        var keyValScore = expressions.objKeyValue.getScore();
+        var expressionsList = [ // if(true){ x = 5; }
+            expressions.varDeclaration,
+            expressions.functionStart,
+            expressions.blockedCode,
+            expressions.objEnd,
+        ];
+        components.identifier.setSpecialPart();
+        var question = codeUtils.makeTest(answerType, expressionsList, name);
+        components.identifier.clearSpecialPart();
+        return question;
+    }},
+    getParts: {value: function(type){
+        var expressionsList = [
+             expressions.functionStart,
+             expressions.blockedCode,
+             expressions.objEnd,
         ];
         return expressionsList;
     }},

@@ -408,14 +408,50 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
                     "if<span class='component-error'>:</span> ",
                     "if(true)<span class='component-missing'>{</span>",
                     "if<span class='component-error'>: false (</span>",
-                    "if<span class='component-missing'>(</span>x==500<span class='component-missing'>){</span>",
+                    "if<span class='component-missing'>(</span>x===500<span class='component-missing'>){</span>",
                     "if(x=<span class='component-missing'>=</span>true){",
                     "if(x=<span class='component-missing'>=</span>false){",
                     "if(x=<span class='component-missing'>=</span>50){",
-                    "if<span class='component-error'>&lt;<span>33==33<span class='component-error'>&gt;</span>{",
+                    "if<span class='component-error'>&lt;<span>33===33<span class='component-error'>&gt;</span>{",
                     "if(3=<span class='component-missing'>=</span>5){",
                     "<span class='component-error'>(</span>if false){",
                     'if <span class="component-error">"</span>8>4<span class="component-error">"</span> {',
+                ]);
+                fragment += '</span>';
+            }
+            fragment += "<span class='component-explanation'>if statement</span></span>\n";
+            return {
+                name: name,
+                string: fragment,
+                answer: type,
+            };
+        }}
+    });
+
+
+    var functionStart  = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var name = "Component-Function";
+            var fragment  = '<span class="component component-beginIf ';
+            if(type==true){
+                fragment += 'component-ok   "><span class="component-code">';
+                fragment += "function(){";
+                fragment += '</span>';
+            } else {
+                fragment += 'component-error hasSubError"><span class="component-code">';
+                fragment += utils.pickFromArr([
+                    "function<span class='component-error'>)(</span>{",
+                    "function<span class='component-error'>{}</span>{",
+                    "function<span class='component-missing'>()</span>{",
+                    "function<span class='component-error'>[]</span>{",
+                    "function<span class='component-error'>:</span>",
+                    "function()<span class='component-missing'>{</span>",
+                    "function()<span class='component-error'>:</span>",
+                    "function(<span class='component-error'>45>2</span>){",
+                    "function(<span class='component-error'>x===false</span>){",
+                    "function<span class='component-error'>&lt;&gt;</span>{",
+                    "function(<span class='component-missing'>)</span>5{",
+                    "<span class='component-error'>(</span>function<span class='component-missing'>(</span>){",
                 ]);
                 fragment += '</span>';
             }
@@ -534,5 +570,6 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
         value,
         operator,
         iff,
+        functionStart,
     };
 });
