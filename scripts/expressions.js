@@ -75,11 +75,11 @@ function(questionPrototype,   components,   codeUtils,   utils) {
                     components.space,
                     components.assignment,
                     components.space,
-                    components.value,
+                    components.number,
                     components.space,
-                    components.operation,
+                    components.operator,
                     components.space,
-                    components.value,
+                    components.number,
                     components.semicolon
                 ];
             }},
