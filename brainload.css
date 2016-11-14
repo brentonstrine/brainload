@@ -22,7 +22,7 @@ body {
 }
 .code {
     min-width: 100px;
-    background-color: rgb(113, 160, 240);
+    background-color: rgba(113, 160, 240, .9);
     font-family: monospace;
     text-align: left;
     font-size: 0;
@@ -74,12 +74,15 @@ body {
 .component {font-size: 4rem;}
 
 /* component-ok */
-.js-showAnswer .component-ok {
+.js-showAnswer .component-ok,
+.js-showAnswer .component-error.hasSubError {
     border-bottom: solid 3px #0F0;
     position: relative;
+    color: inherit;
 }
 
 /* component-error */
+
 .component-error .component-missing {
     display: inline-block;
     width: 0;
@@ -88,13 +91,25 @@ body {
 .component-error .component-required {
     transition: width 1s ease;
 }
-.js-showAnswer .component-error {
+.js-showAnswer .component-error,
+.js-showAnswer .component-error.hasSubError .component-missing {
     color: red;
     border-bottom: solid 3px red;
     text-align: center;
 }
+.js-showAnswer .component-error.hasSubError .component-missing {
+    color: rgba(255,0,0,.5);
+    border-bottom: dotted 3px red;
+}
+.component-error.hasSubError .component-missing {
+    transition: color 300ms, width 300ms;
+}
+
 .js-showAnswer .component-error .component-missing {
     width: auto;
+}
+.js-showAnswer .component-error .component-explanation {
+    color: red;
 }
 
 /* component explanation */

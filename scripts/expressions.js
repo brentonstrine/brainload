@@ -1,5 +1,5 @@
-define(["questionPrototype", "components", "codeUtils"],
-function(questionPrototype, components, codeUtils) {
+define(["questionPrototype", "components", "codeUtils", "utils"],
+function(questionPrototype,   components,   codeUtils,   utils) {
         // Expressions and operators.
 // var x;
         var varDeclaration = Object.create(questionPrototype.questionPrototype(), {
@@ -58,11 +58,11 @@ function(questionPrototype, components, codeUtils) {
                     components.space,
                     components.assignment,
                     components.space,
-                    components.value,
+                    components.number,
                     components.space,
                     components.operator,
                     components.space,
-                    components.value,
+                    components.number,
                     components.semicolon
                 ];
                 var expression = codeUtils.makeTest(type, componentsList, "Expression-assignmentVal");
@@ -246,24 +246,81 @@ function(questionPrototype, components, codeUtils) {
             ];
         }},
     });
-    // }
-        var conditionEnd = Object.create(questionPrototype.questionPrototype(), {
-            get: {value: function(type){
-                var componentsList = [
-                    components.closeCurly,
-                ];
-                var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
-                expression.string = "<div>" + expression.string + "</div>";
-                return expression;
-            }},
-            getParts: {value: function(type){
-                return [
-                    components.closeCurly
-                ];
-            }},
-        });
+// }
+    var conditionEnd = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var componentsList = [
+                components.closeCurly,
+            ];
+            var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
+            expression.string = "<div>" + expression.string + "</div>";
+            return expression;
+        }},
+        getParts: {value: function(type){
+            return [
+                components.closeCurly
+            ];
+        }},
+    });
+// }
+    var blockedCode = Object.create(questionPrototype.questionPrototype(), {
+        get: {value: function(type){
+            var componentsList = getBlock();
+            var expression = codeUtils.makeTest(type, componentsList, "Expression-conditionStart");
+            expression.string = "<div>" + expression.string + "</div>";
+            return expression;
+        }},
+        getParts: {value: function(type){
+            return getBlock();
+        }},
+    });
 
+//SIMPLE HELPER FUNCTIONS
 
+//values
+var getBlock  = function(){
+    var list = utils.pickFromArr([
+        [
+            components.indent,
+            components.variable,
+            components.space,
+            components.identifier,
+            components.space,
+            components.assignment,
+            components.space,
+            components.string,
+            components.semicolon
+        ],
+        [ // x = 4 + 4;
+            components.indent,
+            components.variable,
+            components.space,
+            components.identifier,
+            components.space,
+            components.assignment,
+            components.space,
+            components.value,
+            components.space,
+            components.operator,
+            components.space,
+            components.value,
+            components.semicolon
+        ],
+        [
+            components.indent,
+            components.variable,
+            components.space,
+            components.identifier,
+            components.space,
+            components.assignment,
+            components.space,
+            components.value,
+            components.semicolon
+       ],
+    ]);
+
+    return list;
+};
     return {
         varDeclaration,
         assignmentNum,
@@ -275,6 +332,7 @@ function(questionPrototype, components, codeUtils) {
         objKeyValue,
         objEnd,
         conditionStart,
+        blockedCode,
         conditionEnd,
     };
 });

@@ -27,12 +27,11 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
                 fragment += "&nbsp;";
-                fragment += '</span>';
             } else {
                 fragment += 'component-error"><span class="component-code">';
                 fragment += utils.pickFromArr(["<span class='component-missing component-required'>&nbsp;</span>", utils.pickFromArr(["]", "*", "|", "'", "=", "."])]);
-                fragment += '</span>';
             }
+            fragment += '</span>';
             fragment += "<span class='component-explanation'>space</span></span>\n";
             return {
                 name: name,
@@ -43,10 +42,16 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var indent = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
+            if(type==false){alert("false indent");}
             var name = "Component-Space";
             var fragment  = '<span class="component component-indent ';
-            fragment += 'component-ok   "><span class="component-code">';
-            fragment += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            if(type==true){
+                fragment += 'component-ok"><span class="component-code">';
+                fragment += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            } else {
+                fragment += 'component-error"><span class="component-code">';
+                fragment += utils.pickFromArr(["<span class='component-missing component-required'>&nbsp;&nbsp;&nbsp;&nbsp;</span>"]);
+            }
             fragment += '</span>';
             fragment += "<span class='component-explanation'>indentation</span></span>\n";
             return {
@@ -344,7 +349,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     var operator = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
             var name = "Component-Operator";
-            var fragment  = '<span class="component component-operator';
+            var fragment  = '<span class="component component-operator ';
             var value;
             score = this.getScore();
             if(score < 120){
@@ -358,7 +363,7 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             }
 
             if(type==true){
-                fragment += 'component-ok   "><span class="component-code">';
+                fragment += 'component-ok"><span class="component-code">';
                 fragment += value;
             } else {
                 fragment += 'component-error"><span class="component-code">';
@@ -380,14 +385,41 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
             var fragment  = '<span class="component component-beginIf ';
             if(type==true){
                 fragment += 'component-ok   "><span class="component-code">';
-                fragment += "if(true){";
+                fragment += utils.pickFromArr([
+                    "if(true){",
+                    "if(false){",
+                    "if(1<500){",
+                    "if(1>30){",
+                    "if(4==4){",
+                    "if(88==88){",
+                    "if(67==90){",
+                    "if(x==true){",
+                    "if(x==false){",
+                    "if(x==y){",
+                ]);
                 fragment += '</span>';
             } else {
-                fragment += 'component-error"><span class="component-code">';
-                fragment += utils.pickFromArr(["if)true({", "if{true}{", "if<span class='component-missing'>&nbsp;</span>{", "if[true]{", "if: ", "if{", "if(true)",]);
+                fragment += 'component-error hasSubError"><span class="component-code">';
+                fragment += utils.pickFromArr([
+                    "if<span class='component-error'>)</span>true<span class='component-error'>(</span>{",
+                    "if<span class='component-error'>{</span>true<span class='component-error'>}</span>{",
+                    "if<span class='component-missing'>(true)</span>{",
+                    "if<span class='component-error'>[</span>true<span class='component-error'>]</span>{",
+                    "if<span class='component-error'>:</span> ",
+                    "if(true)<span class='component-missing'>{</span>",
+                    "if<span class='component-error'>: false (</span>",
+                    "if<span class='component-missing'>(</span>x==500<span class='component-missing'>){</span>",
+                    "if(x=<span class='component-missing'>=</span>true){",
+                    "if(x=<span class='component-missing'>=</span>false){",
+                    "if(x=<span class='component-missing'>=</span>50){",
+                    "if<span class='component-error'>&lt;<span>33==33<span class='component-error'>&gt;</span>{",
+                    "if(3=<span class='component-missing'>=</span>5){",
+                    "<span class='component-error'>(</span>if false){",
+                    'if <span class="component-error">"</span>8>4<span class="component-error">"</span> {',
+                ]);
                 fragment += '</span>';
             }
-            fragment += "<span class='component-explanation'>beginning if statement</span></span>\n";
+            fragment += "<span class='component-explanation'>if statement</span></span>\n";
             return {
                 name: name,
                 string: fragment,
