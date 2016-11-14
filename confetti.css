@@ -1,0 +1,135 @@
+.confetti{display:none;}
+.c {
+width: 60px;
+height: 60px;
+margin-top: -100px;
+-moz-border-radius: 30px;
+-webkit-border-radius: 30px;
+border-radius: 30px;
+position:relative;
+animation:c 6s;
+-webkit-animation:c 6s;
+animation-iteration-count: infinite;
+-moz-animation-iteration-count: infinite;
+-webkit-animation-iteration-count: infinite;
+-o-animation-iteration-count: infinite; /* Safari and Chrome */
+}
+@keyframes c
+{
+0%   {top:0px;}
+100% {top:1500px;}
+}
+@-webkit-keyframes c /* Safari and Chrome */
+{
+0%   {top:0px;}
+100% {top:1500px;}
+}
+.c1, .c2, .c3, .c4 {
+	background-color: #a4b1a5;
+}
+.c1 .c12 {
+	animation-delay:1s;
+	-webkit-animation-delay:1s;
+}
+.c1 {
+	margin-left: 50px;
+}
+.c2 {
+	margin-left: 300px;
+}
+.c3, .c6, .c20 {
+	animation-delay:1.5s;
+	-webkit-animation-delay:1.5s;
+}
+.c3 {
+	margin-left: 800px;
+}
+.c4 {
+	margin-left: 600px;
+	animation-delay:3s;
+	-webkit-animation-delay:3s;
+}
+.c5, .c6, .c7 {
+	background-color: #fbfcfa;
+}
+.c5 {
+	margin-left: 700px;
+}
+.c6 {
+	margin-left: 200px;
+}
+.c7, .c8 {
+	animation-delay:4.5s;
+	-webkit-animation-delay:4.5s;
+}
+.c17 {
+	margin-left: 100px;
+}
+.c8, .c9, .c10, .c11 {
+	background-color: #5e625c;
+}
+.c8 {
+	margin-left: 200px;
+}
+.c9 {
+	margin-left: 900px;
+}
+.c10, .c14, .c18 {
+	animation-delay:2.5s;
+	-webkit-animation-delay:2.5s;
+}
+.c10 {
+		margin-left: 550px;
+}
+.c11 {
+	margin-left: 350;
+	animation-delay:2s;
+	-webkit-animation-delay:2s;
+}
+.c12, .c13, .c14 {
+	background-color: #f5d44d;
+}
+.c12 {
+	margin-left: 350;
+}
+.c13 {
+	margin-left: 620;
+	animation-delay:4s;
+	-webkit-animation-delay:4s;
+}
+.c14 {
+	margin-left: 570;
+}
+.c15, .c16, .c17, .c18 {
+	background-color: #e44301;
+}
+.c15 {
+	margin-left: 650px;
+}
+.c16 {
+	margin-left: 100px;
+	animation-delay:4s;
+	-webkit-animation-delay:4s;
+}
+.c17, .c21 {
+	animation-delay:.5s;
+	-webkit-animation-delay:.5s;
+}
+.c17 {
+	margin-left: 250px;
+}
+.c18 {
+	margin-left: 450px;
+}
+.c19, .c20, .c21 {
+	background-color: #a9954d;
+}
+.c19 {
+	margin-left: 450px;
+}
+.c20 {
+	margin-left: 850px;
+}
+.c21 {
+	margin-left: 200px;
+}

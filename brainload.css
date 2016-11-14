@@ -16,7 +16,7 @@ body {
     padding-bottom: 2rem;
     margin-top: 2rem;
 }
-.level input {width: 24em; margin-left: 2em;}
+.level input {width: 30em; margin-left: 1em;}
 .history {
     opacity: .5;
 }

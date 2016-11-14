@@ -10,6 +10,7 @@ questionList, codeUtils) {
     var activeQuestionsList = [questionList[0]];
     var parent = this;
     var won = false;
+    var confettiTimeout = 0;
 
     var levelUp = function(){
         if( (level + 1) == questionList.length ){
@@ -183,25 +184,30 @@ questionList, codeUtils) {
         ;console.log("Lowest Score: ", lowestScore);
 
 
+        var fakeLevels = [
+            "x7T06dg",
+            "h2G1s7l",
+            "q6f2S0M",
+            "e9J3a5I",
+            "6g14pEn",
+            "o9m52fa",
+            "96d6Jc6",
+            "y3d7oo2",
+            "WIN8WIN",
+        ];
         // Check if score means we should level up
         if(won || level > (questionList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
+            confetti();
         } else if(questionList[level].getScore() > 150 && lowestScore > 117) {
-            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+(level + 1)+"</style></div>");
+            confetti();
+            var newLevel = parseInt(level) + 1;
+            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+newLevel+"</span>!! <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[newLevel] + "'></div>");
             $(".window .result").html("Level 🎓 Up!!!");
-            $(".background .history").append("<span class='graduate'>🎓</span><br>");
+            $(".background .history").append("<span class='graduate'>🎓</span><br>" + newLevel + ": ");
             levelUp();
         } else {
-            var fakeLevels = [
-                "x7T06dg",
-                "h2G1s7l",
-                "q6f2S0M",
-                "e9J3a5I",
-                "6g14pEn",
-                "o9m52fa",
-                "96d6Jc6",
-            ];
-            $(".background .level").html("Level "+level+". <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[level] + "'>");
+            $(".background .level").html("Level "+level+" save url: <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup
@@ -214,6 +220,13 @@ questionList, codeUtils) {
             buildTest();
         }, delay);
         ;console.groupEnd();
+    };
+    var confetti = function(){
+        $(".confetti").show();
+        clearTimeout(confettiTimeout);
+        confettiTimeout = setTimeout(function() {
+            $(".confetti").hide();
+        }, 5000);
     };
 
     return {
