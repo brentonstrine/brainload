@@ -177,24 +177,12 @@ Object.create(questionPrototype.questionPrototype(), {
         return question;
     }},
     getParts: {value: function(type){
-        var expressionsList = [
+        return [
              expressions.varDeclaration,
              expressions.assignmentObjStart,
              expressions.objKeyValue,
+             expressions.objEnd,
         ];
-        //add additional lines in the object as score of this expression goes up
-        if(keyValScore > 120){
-            expressionsList.push(expressions.objKeyValue);
-        } else if (keyValScore > 140) {
-            expressionsList.push(expressions.objKeyValue);
-        } else if (keyValScore > 160) {
-            expressionsList.push(expressions.objKeyValue);
-        } else if (keyValScore > 200){
-            expressionsList.push(expressions.objKeyValue);
-        }
-        expressionsList.push(expressions.objEnd);
-
-        return expressionsList;
     }},
 }),
 

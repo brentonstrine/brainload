@@ -222,7 +222,7 @@ function(questionPrototype,   components,   codeUtils,   utils) {
             getParts: {value: function(type){
                 return [
                     components.indent,
-                    components.identifer,
+                    components.identifierUnique,
                     components.colon,
                     components.space,
                     components.value,
