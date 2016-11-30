@@ -42,7 +42,6 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
     });
     var indent = Object.create(questionPrototype.questionPrototype(), {
         get: {value: function(type){
-            if(type==false){alert("false indent");}
             var name = "Component-Space";
             var fragment  = '<span class="component component-indent ';
             if(type==true){
