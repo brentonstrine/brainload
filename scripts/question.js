@@ -207,7 +207,7 @@ questionList, codeUtils) {
             $(".background .history").append("<span class='graduate'>🎓</span><br>" + newLevel + ": ");
             levelUp();
         } else {
-            $(".background .level").html("Level "+level+" save url: <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[level] + "'>");
+            $(".background .level").html("Level "+level+" save url: <input type='text' value='https://brentonstrine.github.io/brainload/?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup
