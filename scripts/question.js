@@ -1,23 +1,23 @@
 define(
 ["utils", "questionPrototype", "components", "expressions",
-"questionList", "codeUtils"],
+"qList", "codeUtils"],
 function(utils, questionPrototype, components, expressions,
-questionList, codeUtils) {
+qList, codeUtils) {
 
     var currentQuestion = true;
     var level = 0;
     var runCount = 0;
-    var activeQuestionsList = [questionList[0]];
+    var activeQuestionsList = [qList[0]];
     var parent = this;
     var won = false;
     var confettiTimeout = 0;
 
     var levelUp = function(){
-        if( (level + 1) == questionList.length ){
+        if( (level + 1) == qList.length ){
             won = true;
         } else {
             level++;
-            activeQuestionsList.push(questionList[level]);
+            activeQuestionsList.push(qList[level]);
             ;console.log("++++++++++++ LEVEL UP +++++++++++++");
         }
     };
@@ -35,7 +35,7 @@ questionList, codeUtils) {
             activeQuestionsList[i].setScore( 150 + (10 * (level - i)));
 
             //get the expressions in this question
-            expressionList = questionList[i].getParts();
+            expressionList = qList[i].getParts();
 
             //loop through expressions
             for(var j=0;j<expressionList.length;j++){
@@ -180,7 +180,7 @@ questionList, codeUtils) {
         }
 
         ;console.log("Scores: ", scoreObj);
-        ;console.log("Level Score: ", questionList[level].getScore())
+        ;console.log("Level Score: ", qList[level].getScore())
         ;console.log("Lowest Score: ", lowestScore);
 
 
@@ -196,10 +196,10 @@ questionList, codeUtils) {
             "WIN8WIN",
         ];
         // Check if score means we should level up
-        if(won || level > (questionList.length - 1) ){
+        if(won || level > (qList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
             confetti();
-        } else if(questionList[level].getScore() > 150 && lowestScore > 117) {
+        } else if(qList[level].getScore() > 150 && lowestScore > 117) {
             confetti();
             var newLevel = parseInt(level) + 1;
             $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+newLevel+"</span>!! <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[newLevel] + "'></div>");

@@ -1,9 +1,9 @@
 $(function(){
     requirejs(
     ["utils", "components", "expressions", "question",
-    "questionList"],
+    "qList"],
     function(utils, components, expressions, question,
-    questionList) {
+    qList) {
         $(document).on("keyup", function(e){
             if(question.getQuestion()){
                 if(e.which == 39){ //right arrow
