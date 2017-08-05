@@ -1,5 +1,76 @@
 define(["questionPrototype", "components", "codeUtils", "utils"],
 function(questionPrototype,   components,   codeUtils,   utils) {
+        // Simple Element
+        // <div>Hello</div>
+        var element = Object.create(questionPrototype.questionPrototype(), {
+            get: {value: function(type){
+                var fragments = [this];
+                var componentsList = [
+                    components.openAngle,
+                    components.tagName,
+                    components.closeAngle,
+                    components.elementContent,
+                    components.openAngle,
+                    components.forwardSlash,
+                    components.tagNameSame,
+                    components.closeAngle,
+                    // components.carotClose,
+                    // components.content,
+                    // components.tagClose
+                ];
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-Element");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
+            }},
+            getParts: {value: function(type){
+                return [
+                    components.openAngle,
+                    components.tagName,
+                    components.closeAngle,
+                    components.elementContent,
+                    components.openAngle,
+                    components.forwardSlash,
+                    components.tagNameSame,
+                    components.closeAngle,
+                ];
+            }},
+        });
+        // Element with Attribute
+        // <div class="red">Hello</div>
+        var elementAttr = Object.create(questionPrototype.questionPrototype(), {
+            get: {value: function(type){
+                var fragments = [this];
+                var componentsList = [
+                    components.openAngle,
+                    components.tagName,
+                    components.attribute,
+                    components.closeAngle,
+                    components.elementContent,
+                    components.openAngle,
+                    components.forwardSlash,
+                    components.tagNameSame,
+                    components.closeAngle,
+                ];
+                var expression = codeUtils.makeTest(type, componentsList, "Expression-Element");
+                expression.string = "<div>" + expression.string + "</div>";
+                return expression;
+            }},
+            getParts: {value: function(type){
+                return [
+                    components.openAngle,
+                    components.tagName,
+                    components.space,
+                    components.attribute,
+                    components.closeAngle,
+                    components.elementContent,
+                    components.openAngle,
+                    components.forwardSlash,
+                    components.tagNameSame,
+                    components.closeAngle,
+                ];
+            }},
+        });
+
         // Expressions and operators.
 // var x;
         var varDeclaration = Object.create(questionPrototype.questionPrototype(), {
@@ -347,6 +418,8 @@ var getBlock  = function(){
 };
     return {
         varDeclaration,
+        element,
+        elementAttr,
         assignmentNum,
         assignmentStr,
         assignmentObj,

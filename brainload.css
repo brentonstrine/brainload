@@ -29,7 +29,14 @@ body {
     border-radius: 1rem;
     padding: 1.5rem 4rem;
     position: relative;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
+.code .component-tagName        { color: #c13c3c; }
+.code .component-attributeName  { color: #d46e05; }
+.code .component-attributeValue { color: #1a8a1a; }
+.code .component-content        { color: #f3f3f3; }
+.code .component-attributeEquals, .code .component-openAngle, .code .component-closeAngle, .code .component-forwardSlash
+                                { color: #696868; }
 .code > div {
     white-space: nowrap;
 }
@@ -78,7 +85,7 @@ body {
 .js-showAnswer .component-error.hasSubError {
     border-bottom: solid 3px #0F0;
     position: relative;
-    color: inherit;
+    /*color: inherit;*/
 }
 
 /* component-error */
@@ -93,7 +100,7 @@ body {
 }
 .js-showAnswer .component-error,
 .js-showAnswer .component-error.hasSubError .component-missing {
-    color: red;
+    color: red !important;
     border-bottom: solid 3px red;
     text-align: center;
 }
@@ -110,6 +117,7 @@ body {
 }
 .js-showAnswer .component-error .component-explanation {
     color: red;
+    text-shadow: none;
 }
 
 /* component explanation */

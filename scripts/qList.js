@@ -2,6 +2,62 @@ define(["questionPrototype", "components", "expressions", "codeUtils", "utils"],
 function(questionPrototype,   components,   expressions,   codeUtils,   utils) {
 return [
 /* 0
+<div>hi</div>
+*/
+Object.create(questionPrototype.questionPrototype(), {
+    get: {value: function(answerType){
+        var name = "Block-Var Declaration";
+        var expressionsList = [
+             expressions.element,
+        ];
+        var question = codeUtils.makeTest(answerType, expressionsList, name);
+        return question;
+    }},
+    getParts: {value: function(type){
+        return [
+            expressions.element,
+        ];
+    }},
+}),
+
+/* 1
+<div class="red">hi</div>
+*/
+Object.create(questionPrototype.questionPrototype(), {
+    getParts: {value: function(type){
+        var assignmentScore = expressions.assignmentVal.getScore();
+        var expressionsList = [
+             expressions.elementAttr
+        ];
+        var maxRepeats = 0;
+        //add additional lines in the object as score of this expression goes up
+        if(assignmentScore > 120){
+            maxRepeats = 1;
+        } else if (assignmentScore > 140) {
+            maxRepeats = 2;
+        } else if (assignmentScore > 150) {
+            maxRepeats = 4;
+        } else if (assignmentScore > 180){
+            maxRepeats = 6;
+        }
+        var repeats = utils.pickFrom(0,maxRepeats);
+        utils.loop(repeats, function(){
+            expressionsList.push(expressions.assignmentVal);
+        });
+        return expressionsList;
+    }},
+    get: {value: function(answerType){
+        var name = "Block-Var Declaration and Assignment";
+        var expressionsList = this.getParts();
+
+        components.identifier.setSpecialPart();
+        var question = codeUtils.makeTest(answerType, expressionsList, name);
+        components.identifier.clearSpecialPart();
+
+        return question;
+    }},
+}),
+/* 2
 var x;
 */
 Object.create(questionPrototype.questionPrototype(), {
@@ -20,7 +76,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 1
+/* 3
 var x; x=val;
 */
 Object.create(questionPrototype.questionPrototype(), {
@@ -59,7 +115,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 2
+/* 4
 var x; x=num+num;
 */
 Object.create(questionPrototype.questionPrototype(), {
@@ -98,7 +154,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 3
+/* 5
 */
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
@@ -122,7 +178,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 4
+/* 6
 */
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
@@ -145,7 +201,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 5
+/* 7
 */
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
@@ -186,7 +242,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 6
+/* 8
     if(true){
         var x = 6;
     }                      */
@@ -215,7 +271,7 @@ Object.create(questionPrototype.questionPrototype(), {
     }},
 }),
 
-/* 7
+/* 9
     var x = function(){
         var x = 6;
     }                      */

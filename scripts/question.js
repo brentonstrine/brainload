@@ -23,6 +23,7 @@ qList, codeUtils) {
     };
 
     var skipToLevel = function(level){
+        if(level==="W") { level = 10; }
         level = parseInt(level);
         for(var i=0;i<level;i++){
             var expressionList;
@@ -185,15 +186,17 @@ qList, codeUtils) {
 
 
         var fakeLevels = [
-            "x7T06dg",
+            "x7T06dg",//0
             "h2G1s7l",
             "q6f2S0M",
             "e9J3a5I",
             "6g14pEn",
-            "o9m52fa",
-            "96d6Jc6",
-            "y3d7oo2",
-            "WIN8WIN",
+            "o9m52fa",//5
+            "96d6Jc6",//6
+            "y3d7oo2",//7
+            "6gx8j3d",//8
+            "W3p9f3a",//9
+            "WINWIN!",//10
         ];
         // Check if score means we should level up
         if(won || level > (qList.length - 1) ){
