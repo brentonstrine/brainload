@@ -22,6 +22,9 @@ define(["questionPrototype", "components", "expressions"], function(questionProt
 
 
         //;console.log(probabilityList, check);
+        if(!probabilityList[0]) {
+            debugger;
+        }
         return probabilityList;
     };
 
@@ -43,6 +46,8 @@ define(["questionPrototype", "components", "expressions"], function(questionProt
             }
             r = r - probabilityList[i];
         }
+
+            debugger;
     };
 
     //random randomly

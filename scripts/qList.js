@@ -6,7 +6,7 @@ return [
 */
 Object.create(questionPrototype.questionPrototype(), {
     get: {value: function(answerType){
-        var name = "Block-Var Declaration";
+        var name = "Simple Element";
         var expressionsList = [
              expressions.element,
         ];
@@ -25,29 +25,14 @@ Object.create(questionPrototype.questionPrototype(), {
 */
 Object.create(questionPrototype.questionPrototype(), {
     getParts: {value: function(type){
-        var assignmentScore = expressions.assignmentVal.getScore();
+        var assignmentScore = expressions.elementAttr.getScore();
         var expressionsList = [
              expressions.elementAttr
         ];
-        var maxRepeats = 0;
-        //add additional lines in the object as score of this expression goes up
-        if(assignmentScore > 120){
-            maxRepeats = 1;
-        } else if (assignmentScore > 140) {
-            maxRepeats = 2;
-        } else if (assignmentScore > 150) {
-            maxRepeats = 4;
-        } else if (assignmentScore > 180){
-            maxRepeats = 6;
-        }
-        var repeats = utils.pickFrom(0,maxRepeats);
-        utils.loop(repeats, function(){
-            expressionsList.push(expressions.assignmentVal);
-        });
         return expressionsList;
     }},
     get: {value: function(answerType){
-        var name = "Block-Var Declaration and Assignment";
+        var name = "Element with Attribute";
         var expressionsList = this.getParts();
 
         components.identifier.setSpecialPart();

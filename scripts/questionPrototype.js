@@ -8,10 +8,9 @@ define([], function() {
 
           this.updateScore = function(amount){
               score += amount;
-            //   levelPoints += amount;
-            //   if(levelPoints>30){
-            //
-            //   }
+              if(score < 1) {
+                  score = 1;
+              }
           };
           this.setScore = function(newScore){
               score = newScore;

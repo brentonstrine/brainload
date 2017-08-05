@@ -73,6 +73,9 @@ qList, codeUtils) {
         //pick which code we're going to test
         var testId = codeUtils.chooseCode(activeQuestionsList);
         var qObject = activeQuestionsList[testId];
+        if(qObject == undefined || typeof qObject == undefined) {
+            debugger;
+        }
         var qResult = qObject.get(testType);
         setQuestion({object: qObject, guess: qResult});
 
