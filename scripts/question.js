@@ -25,6 +25,9 @@ qList, codeUtils) {
     var skipToLevel = function(level){
         if(level==="W") { level = 10; }
         level = parseInt(level);
+        // rewrite starting level in history
+        $history = $(".background .history").html(level + ": ");
+
         for(var i=0;i<level;i++){
             var expressionList;
             var componentList = [];
