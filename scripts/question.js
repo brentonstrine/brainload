@@ -211,12 +211,12 @@ qList, codeUtils) {
         } else if(qList[level].getScore() > 150 && lowestScore > 117) {
             confetti();
             var newLevel = parseInt(level) + 1;
-            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+newLevel+"</span>!! <input type='text' value='http://brainload.brentonstrine.com/?hash=" + fakeLevels[newLevel] + "'></div>");
+            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+newLevel+"</span>!! <input type='text' value='https://brainload.ga/?hash=" + fakeLevels[newLevel] + "'></div>");
             $(".window .result").html("Level 🎓 Up!!!");
             $(".background .history").append("<span class='graduate'>🎓</span><br>" + newLevel + ": ");
             levelUp();
         } else {
-            $(".background .level").html("Level "+level+" save url: <input type='text' value='https://brentonstrine.github.io/brainload/?hash=" + fakeLevels[level] + "'>");
+            $(".background .level").html("Level "+level+" save url: <input type='text' value='https://brainload.ga?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup
