@@ -11,6 +11,9 @@ qList, codeUtils) {
     var parent = this;
     var won = false;
     var confettiTimeout = 0;
+    var expiresDate = new Date();
+    expiresDate.setTime(expiresDate.getTime()+(18*24*60*60*1000)); // 18 days from today
+    expiresDate = expiresDate.toGMTString();
 
     var levelUp = function(){
         if( (level + 1) == qList.length ){
@@ -23,7 +26,6 @@ qList, codeUtils) {
     };
 
     var skipToLevel = function(level){
-        if(level==="W") { level = 10; }
         level = parseInt(level);
         // rewrite starting level in history
         $history = $(".background .history").html(level + ": ");
@@ -189,21 +191,6 @@ qList, codeUtils) {
         ;console.log("Scores: ", scoreObj);
         ;console.log("Level Score: ", qList[level].getScore())
         ;console.log("Lowest Score: ", lowestScore);
-
-
-        var fakeLevels = [
-            "x7T06dg",//0
-            "h2G1s7l",
-            "q6f2S0M",
-            "e9J3a5I",
-            "6g14pEn",
-            "o9m52fa",//5
-            "96d6Jc6",//6
-            "y3d7oo2",//7
-            "6gx8j3d",//8
-            "W3p9f3a",//9
-            "WINWIN!",//10
-        ];
         // Check if score means we should level up
         if(won || level > (qList.length - 1) ){
             $(".window .result").html("You 🎓 Won!");
@@ -211,12 +198,10 @@ qList, codeUtils) {
         } else if(qList[level].getScore() > 150 && lowestScore > 117) {
             confetti();
             var newLevel = parseInt(level) + 1;
-            $(".background .level").html("<div style='font-size: 2em;'>Level <span style='color: green; font-weight: bold;'>"+newLevel+"</span>!! <input type='text' value='https://brainload.ga/?hash=" + fakeLevels[newLevel] + "'></div>");
+            document.cookie = "level=" + newLevel + "; expires=" + expiresDate;
             $(".window .result").html("Level 🎓 Up!!!");
             $(".background .history").append("<span class='graduate'>🎓</span><br>" + newLevel + ": ");
             levelUp();
-        } else {
-            $(".background .level").html("Level "+level+" save url: <input type='text' value='https://brainload.ga?hash=" + fakeLevels[level] + "'>");
         }
 
         //cleanup

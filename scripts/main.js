@@ -15,9 +15,9 @@ $(function(){
                 console.log ("whoa there! Slow down!")
             }
         });
-        var urlLevel = utils.getUrlParameter("hash");
-        if(urlLevel){
-            question.skipToLevel(urlLevel[3]);
+        if(document.cookie){
+            debugger;
+            question.skipToLevel(document.cookie.level);
         }
         question.buildTest();
     });
