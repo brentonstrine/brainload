@@ -15,9 +15,13 @@ $(function(){
                 console.log ("whoa there! Slow down!")
             }
         });
-        if(document.cookie){
-            debugger;
-            question.skipToLevel(document.cookie.level);
+
+        if (document.cookie.split(';').filter(function(item) {
+            return item.indexOf('length=') >= 0;
+        }).length) {
+            ;debugger;
+            var level = document.cookie.replace(/(?:(?:^|.*;\s*)level\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            question.skipToLevel(level);
         }
         question.buildTest();
     });

@@ -226,7 +226,9 @@ define(["utils", "questionPrototype"], function(utils, questionPrototype) {
                 var a = utils.pickFromArr(["==", "===", "<span class='component-missing'>&nbsp;</span>", utils.pickFrom(0,999), "-", "!"]);
                 fragment += a;
                 fragment += '</span>';
-                if(a=="="){debugger;}
+                if(a=="="){
+                  ;debugger;
+                }
             }
             fragment += "<span class='component-explanation'>assignment</span></span>\n";
             return {
