@@ -17,7 +17,7 @@ $(function(){
         });
 
         if (document.cookie.split(';').filter(function(item) {
-            return item.indexOf('length=') >= 0;
+            return item.indexOf('level=') >= 0;
         }).length) {
             ;debugger;
             var level = document.cookie.replace(/(?:(?:^|.*;\s*)level\s*\=\s*([^;]*).*$)|^.*$/, "$1");
